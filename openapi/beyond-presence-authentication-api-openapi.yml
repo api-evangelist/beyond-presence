@@ -1,0 +1,30 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents Authentication API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Authentication
+paths:
+  /v1/auth/verify:
+    get:
+      tags:
+      - Authentication
+      summary: Verify API Key
+      description: Verify authentication with API key.
+      operationId: verify_v1_auth_verify_get
+      responses:
+        '204':
+          description: Valid API Key
+        '401':
+          description: Missing or Invalid API Key
+      security:
+      - APIKeyHeader: []
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

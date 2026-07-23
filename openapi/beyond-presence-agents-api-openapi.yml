@@ -1,0 +1,824 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Agents
+paths:
+  /v1/agents:
+    post:
+      tags:
+      - Agents
+      summary: Create Agent
+      description: Create agent.
+      operationId: create_agent_v1_agents_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentRequest'
+      responses:
+        '201':
+          description: Created Agent with ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Agents
+      summary: List Agents
+      description: List agents.
+      operationId: list_agents_v1_agents_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of Agents
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_AgentResponse_'
+                - $ref: '#/components/schemas/NoMorePage_AgentResponse_'
+                title: Response List Agents V1 Agents Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/agents/{id}:
+    patch:
+      tags:
+      - Agents
+      summary: Update Agent
+      description: Update agent.
+      operationId: update_agent_v1_agents__id__patch
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Agent ID.
+          title: Id
+        description: Agent ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentRequest'
+      responses:
+        '204':
+          description: Successful Update
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Agents
+      summary: Retrieve Agent
+      description: Retrieve agent.
+      operationId: get_agent_v1_agents__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Agent ID.
+          title: Id
+        description: Agent ID.
+      responses:
+        '200':
+          description: Requested Agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Agents
+      summary: Delete Agent
+      description: Delete agent.
+      operationId: delete_agent_v1_agents__id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Agent ID.
+          title: Id
+        description: Agent ID.
+      responses:
+        '204':
+          description: Successful Deletion
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AgentCapabilityList:
+      items:
+        $ref: '#/components/schemas/AgentCapability'
+      type: array
+    WebcamVisionAgentCapability:
+      properties:
+        type:
+          type: string
+          const: webcam_vision
+          title: Type
+          default: webcam_vision
+      type: object
+      title: WebcamVisionAgentCapability
+      description: Agent capability to see user camera feed.
+    AgentTts:
+      oneOf:
+      - $ref: '#/components/schemas/LivekitAgentTts'
+      - $ref: '#/components/schemas/ElevenlabsAgentTts'
+      - $ref: '#/components/schemas/DeepgramAgentTts'
+      - $ref: '#/components/schemas/OpenaiAgentTts'
+      - $ref: '#/components/schemas/GoogleAgentTts'
+      discriminator:
+        propertyName: type
+        mapping:
+          deepgram: '#/components/schemas/DeepgramAgentTts'
+          elevenlabs: '#/components/schemas/ElevenlabsAgentTts'
+          google_tts: '#/components/schemas/GoogleAgentTts'
+          livekit: '#/components/schemas/LivekitAgentTts'
+          openai_tts: '#/components/schemas/OpenaiAgentTts'
+    NoMorePage_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[AgentResponse]
+    OpenaiCompatibleAgentLlm:
+      properties:
+        type:
+          type: string
+          const: openai_compatible
+          title: Type
+          default: openai_compatible
+        api_id:
+          type: string
+          title: Api Id
+        model:
+          type: string
+          title: Model
+        temperature:
+          type: number
+          title: Temperature
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+          title: Headers
+      type: object
+      required:
+      - api_id
+      - model
+      - temperature
+      title: OpenaiCompatibleAgentLlm
+      description: 'Configuration for an LLM provided by an OpenAI-compatible API.
+
+
+        The notion of "OpenAI-compatible API" is somewhat fuzzy, there is no
+
+        agreed upon standard for what it means.
+
+        In practice, we care if the API is compatible with how LiveKit''s openai
+
+        plugin interacts with it, i.e. a subset of OpenAI''s API specification that
+
+        provides chat completions:
+
+        https://platform.openai.com/docs/api-reference/completions'
+    DeepgramAgentTts:
+      properties:
+        type:
+          type: string
+          const: deepgram
+          title: Type
+          default: deepgram
+        voice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Voice
+      type: object
+      title: DeepgramAgentTts
+      description: Configuration for Deepgram TTS.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Language:
+      type: string
+      enum:
+      - ar
+      - ar-SA
+      - bn
+      - bg
+      - zh
+      - cs
+      - da
+      - nl
+      - en
+      - en-AU
+      - en-GB
+      - en-US
+      - fi
+      - fr
+      - fr-CA
+      - fr-FR
+      - de
+      - el
+      - hi
+      - hu
+      - id
+      - it
+      - ja
+      - kk
+      - ko
+      - ms
+      - 'no'
+      - pl
+      - pt
+      - pt-BR
+      - pt-PT
+      - ro
+      - ru
+      - sk
+      - es
+      - sv
+      - tr
+      - uk
+      - ur
+      - vi
+      title: Language
+      description: Language for communication.
+    AgentResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          description: Display name to use. Also used when addressed in conversations.
+          examples:
+          - Jarvis
+          - HAL 9000
+        avatar_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        system_prompt:
+          type: string
+          maxLength: 10000
+          minLength: 1
+          title: System Prompt
+          description: System prompt to use.
+          examples:
+          - You are a helpful assistant.
+        language:
+          anyOf:
+          - $ref: '#/components/schemas/Language'
+          - type: 'null'
+          description: Language to use.
+          examples:
+          - en
+          - en-US
+          - de
+        greeting:
+          anyOf:
+          - type: string
+            maxLength: 1000
+            minLength: 1
+          - type: 'null'
+          title: Greeting
+          description: What to say when a call starts.
+          examples:
+          - Hello!
+        max_session_length_minutes:
+          anyOf:
+          - type: integer
+            maximum: 90.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Max Session Length Minutes
+          description: Maximum session length in minutes.
+          examples:
+          - 30
+        capabilities:
+          $ref: '#/components/schemas/AgentCapabilityList'
+          description: Extra capabilities to manage calls.
+          examples:
+          - - type: webcam_vision
+            - triggers:
+              - hey agent
+              - hi pal
+              type: wakeup_mode
+        llm:
+          anyOf:
+          - $ref: '#/components/schemas/AgentLlm'
+          - type: 'null'
+          description: Configuration for LLM to use.
+          examples:
+          - type: openai
+          - api_id: 01234567-89ab-cdef-0123-456789abcdef
+            model: gpt-4o-mini
+            temperature: 0.7
+            type: openai_compatible
+        tts:
+          anyOf:
+          - $ref: '#/components/schemas/AgentTts'
+          - type: 'null'
+          description: Configuration for TTS to use.
+          examples:
+          - type: elevenlabs
+            voice: 21m00Tcm4TlvDq8ikWAM
+        knowledge_file_ids:
+          items:
+            type: string
+            minLength: 1
+          type: array
+          uniqueItems: true
+          title: Knowledge File Ids
+          description: IDs of knowledge files to refer to.
+      type: object
+      required:
+      - id
+      - name
+      - avatar_id
+      - system_prompt
+      title: AgentResponse
+      description: Response model for an agent.
+    LivekitAgentTts:
+      properties:
+        type:
+          type: string
+          const: livekit
+          title: Type
+          default: livekit
+        model:
+          type: string
+          title: Model
+        voice:
+          type: string
+          title: Voice
+      type: object
+      required:
+      - model
+      - voice
+      title: LivekitAgentTts
+      description: Configuration for TTS supported via LiveKit Inference.
+    AgentLlm:
+      oneOf:
+      - $ref: '#/components/schemas/LivekitAgentLlm'
+      - $ref: '#/components/schemas/OpenaiAgentLlm'
+      - $ref: '#/components/schemas/OpenaiCompatibleAgentLlm'
+      discriminator:
+        propertyName: type
+        mapping:
+          livekit: '#/components/schemas/LivekitAgentLlm'
+          openai: '#/components/schemas/OpenaiAgentLlm'
+          openai_compatible: '#/components/schemas/OpenaiCompatibleAgentLlm'
+    UpdateAgentRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          description: Display name to use. Also used when addressed in conversations.
+          examples:
+          - Jarvis
+          - HAL 9000
+        avatar_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        system_prompt:
+          type: string
+          maxLength: 10000
+          minLength: 1
+          title: System Prompt
+          description: System prompt to use.
+          examples:
+          - You are a helpful assistant.
+        language:
+          anyOf:
+          - $ref: '#/components/schemas/Language'
+          - type: 'null'
+          description: Language to use.
+          examples:
+          - en
+          - en-US
+          - de
+        greeting:
+          anyOf:
+          - type: string
+            maxLength: 1000
+            minLength: 1
+          - type: 'null'
+          title: Greeting
+          description: What to say when a call starts.
+          examples:
+          - Hello!
+        max_session_length_minutes:
+          anyOf:
+          - type: integer
+            maximum: 90.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Max Session Length Minutes
+          description: Maximum session length in minutes.
+          examples:
+          - 30
+        capabilities:
+          $ref: '#/components/schemas/AgentCapabilityList'
+          description: Extra capabilities to manage calls.
+          examples:
+          - - type: webcam_vision
+            - triggers:
+              - hey agent
+              - hi pal
+              type: wakeup_mode
+        llm:
+          anyOf:
+          - $ref: '#/components/schemas/AgentLlm'
+          - type: 'null'
+          description: Configuration for LLM to use.
+          examples:
+          - type: openai
+          - api_id: 01234567-89ab-cdef-0123-456789abcdef
+            model: gpt-4o-mini
+            temperature: 0.7
+            type: openai_compatible
+        tts:
+          anyOf:
+          - $ref: '#/components/schemas/AgentTts'
+          - type: 'null'
+          description: Configuration for TTS to use.
+          examples:
+          - type: elevenlabs
+            voice: 21m00Tcm4TlvDq8ikWAM
+        knowledge_file_ids:
+          items:
+            type: string
+            minLength: 1
+          type: array
+          uniqueItems: true
+          title: Knowledge File Ids
+          description: IDs of knowledge files to refer to.
+      type: object
+      title: UpdateAgentRequest
+      description: Request body to update an agent. Omitted fields are unchanged.
+    AgentCapability:
+      oneOf:
+      - $ref: '#/components/schemas/WebcamVisionAgentCapability'
+      - $ref: '#/components/schemas/WakeupModeAgentCapability'
+      discriminator:
+        propertyName: type
+        mapping:
+          wakeup_mode: '#/components/schemas/WakeupModeAgentCapability'
+          webcam_vision: '#/components/schemas/WebcamVisionAgentCapability'
+    ElevenlabsAgentTts:
+      properties:
+        type:
+          type: string
+          const: elevenlabs
+          title: Type
+          default: elevenlabs
+        voice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Voice
+      type: object
+      title: ElevenlabsAgentTts
+      description: Configuration for Elevenlabs TTS.
+    WakeupModeAgentCapability:
+      properties:
+        type:
+          type: string
+          const: wakeup_mode
+          title: Type
+          default: wakeup_mode
+        triggers:
+          items:
+            type: string
+          type: array
+          title: Triggers
+      type: object
+      required:
+      - triggers
+      title: WakeupModeAgentCapability
+      description: Agent capability to wake up only on specific keywords.
+    OpenaiAgentLlm:
+      properties:
+        type:
+          type: string
+          const: openai
+          title: Type
+          default: openai
+        model:
+          type: string
+          enum:
+          - gpt-4.1-mini
+          - gpt-4.1
+          title: Model
+          default: gpt-4.1-mini
+      type: object
+      title: OpenaiAgentLlm
+      description: Configuration for OpenAI LLM.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GoogleAgentTts:
+      properties:
+        type:
+          type: string
+          const: google_tts
+          title: Type
+          default: google_tts
+        voice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Voice
+      type: object
+      title: GoogleAgentTts
+      description: Configuration for Google TTS.
+    CreateAgentRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          description: Display name to use. Also used when addressed in conversations.
+          examples:
+          - Jarvis
+          - HAL 9000
+        avatar_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        system_prompt:
+          type: string
+          maxLength: 10000
+          minLength: 1
+          title: System Prompt
+          description: System prompt to use.
+          examples:
+          - You are a helpful assistant.
+        language:
+          anyOf:
+          - $ref: '#/components/schemas/Language'
+          - type: 'null'
+          description: Language to use.
+          examples:
+          - en
+          - en-US
+          - de
+        greeting:
+          anyOf:
+          - type: string
+            maxLength: 1000
+            minLength: 1
+          - type: 'null'
+          title: Greeting
+          description: What to say when a call starts.
+          examples:
+          - Hello!
+        max_session_length_minutes:
+          anyOf:
+          - type: integer
+            maximum: 90.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Max Session Length Minutes
+          description: Maximum session length in minutes.
+          examples:
+          - 30
+        capabilities:
+          $ref: '#/components/schemas/AgentCapabilityList'
+          description: Extra capabilities to manage calls.
+          examples:
+          - - type: webcam_vision
+            - triggers:
+              - hey agent
+              - hi pal
+              type: wakeup_mode
+        llm:
+          anyOf:
+          - $ref: '#/components/schemas/AgentLlm'
+          - type: 'null'
+          description: Configuration for LLM to use.
+          examples:
+          - type: openai
+          - api_id: 01234567-89ab-cdef-0123-456789abcdef
+            model: gpt-4o-mini
+            temperature: 0.7
+            type: openai_compatible
+        tts:
+          anyOf:
+          - $ref: '#/components/schemas/AgentTts'
+          - type: 'null'
+          description: Configuration for TTS to use.
+          examples:
+          - type: elevenlabs
+            voice: 21m00Tcm4TlvDq8ikWAM
+        knowledge_file_ids:
+          items:
+            type: string
+            minLength: 1
+          type: array
+          uniqueItems: true
+          title: Knowledge File Ids
+          description: IDs of knowledge files to refer to.
+      type: object
+      required:
+      - name
+      - avatar_id
+      - system_prompt
+      title: CreateAgentRequest
+      description: Request body to create an agent.
+    LivekitAgentLlm:
+      properties:
+        type:
+          type: string
+          const: livekit
+          title: Type
+          default: livekit
+        model:
+          type: string
+          title: Model
+        reasoning_effort:
+          anyOf:
+          - type: string
+            enum:
+            - low
+            - medium
+            - high
+            - xhigh
+          - type: 'null'
+          title: Reasoning Effort
+      type: object
+      required:
+      - model
+      title: LivekitAgentLlm
+      description: Configuration for LLMs supported via LiveKit Inference.
+    OpenaiAgentTts:
+      properties:
+        type:
+          type: string
+          const: openai_tts
+          title: Type
+          default: openai_tts
+        voice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Voice
+      type: object
+      title: OpenaiAgentTts
+      description: Configuration for OpenAI TTS.
+    HasMorePage_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[AgentResponse]
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

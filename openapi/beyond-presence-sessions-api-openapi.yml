@@ -1,0 +1,413 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents Sessions API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Sessions
+paths:
+  /v1/sessions:
+    post:
+      tags:
+      - Sessions
+      summary: Create LiveKit Audio-to-Video Session
+      description: 'Create LiveKit speech-to-video session.
+
+
+        Tip: do not to use this directly, use the LiveKit plugin instead.
+
+        See <https://docs.livekit.io/agents/integrations/avatar/bey>.'
+      operationId: create_session_v1_sessions_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: Created LiveKit Audio-to-Video Session with ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Sessions
+      summary: List LiveKit Audio-to-Video Sessions
+      description: List LiveKit speech-to-video sessions.
+      operationId: list_sessions_v1_sessions_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of LiveKit Audio-to-Video Sessions
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_SessionResponse_'
+                - $ref: '#/components/schemas/NoMorePage_SessionResponse_'
+                title: Response List Sessions V1 Sessions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/sessions/{id}:
+    get:
+      tags:
+      - Sessions
+      summary: Retrieve LiveKit Audio-to-Video Sessions
+      description: Retrieve LiveKit speech-to-video session.
+      operationId: get_session_v1_sessions__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: LiveKit speech-to-video session ID.
+          title: Id
+        description: LiveKit speech-to-video session ID.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HasMorePage_SessionResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SessionResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[SessionResponse]
+    PipecatSessionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        transport:
+          type: string
+          const: pipecat
+          title: Transport
+          default: pipecat
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        url:
+          type: string
+          title: Url
+          description: URL of Daily room the video bot should connect to.
+          examples:
+          - wss://<your-domain>.pipecat.cloud
+      type: object
+      required:
+      - id
+      - avatar_id
+      - status
+      - url
+      title: PipecatSessionResponse
+      description: Response body for a Pipecat speech-to-video session.
+    LivekitSessionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        transport:
+          type: string
+          const: livekit
+          title: Transport
+          default: livekit
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        url:
+          type: string
+          title: Url
+          description: URL of LiveKit server the avatar worker should connect to.
+          examples:
+          - wss://<your-domain>.livekit.cloud
+      type: object
+      required:
+      - id
+      - avatar_id
+      - status
+      - url
+      title: LivekitSessionResponse
+      description: Response body for a LiveKit speech-to-video session.
+    CreateLivekitSessionRequest:
+      properties:
+        transport:
+          type: string
+          const: livekit
+          title: Transport
+          default: livekit
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        url:
+          type: string
+          title: Url
+          description: URL of LiveKit server the avatar worker should connect to.
+          examples:
+          - wss://<your-domain>.livekit.cloud
+        token:
+          type: string
+          format: password
+          title: Token
+          description: The token used to join your LiveKit room.
+          writeOnly: true
+          examples:
+          - <your-livekit-token>
+      type: object
+      required:
+      - avatar_id
+      - url
+      - token
+      title: CreateLivekitSessionRequest
+      description: Request body to create a LiveKit speech-to-video session.
+    SessionStatusOngoing:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: SessionStatusOngoing
+      description: Session that is currently ongoing.
+    CreatePipecatSessionRequest:
+      properties:
+        transport:
+          type: string
+          const: pipecat
+          title: Transport
+          default: pipecat
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        url:
+          type: string
+          title: Url
+          description: URL of Daily room the video bot should connect to.
+          examples:
+          - wss://<your-domain>.pipecat.cloud
+        token:
+          type: string
+          format: password
+          title: Token
+          description: The token used to join your Daily room.
+          writeOnly: true
+          examples:
+          - <your-pipecat-token>
+      type: object
+      required:
+      - avatar_id
+      - url
+      - token
+      title: CreatePipecatSessionRequest
+      description: Request body to create a Pipecat speech-to-video session.
+    CreateSessionRequest:
+      anyOf:
+      - $ref: '#/components/schemas/CreateLivekitSessionRequest'
+      - $ref: '#/components/schemas/CreatePipecatSessionRequest'
+    SessionResponse:
+      oneOf:
+      - $ref: '#/components/schemas/LivekitSessionResponse'
+      - $ref: '#/components/schemas/PipecatSessionResponse'
+      discriminator:
+        propertyName: transport
+        mapping:
+          livekit: '#/components/schemas/LivekitSessionResponse'
+          pipecat: '#/components/schemas/PipecatSessionResponse'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SessionStatusToStart:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: SessionStatusToStart
+      description: Session that has not yet started.
+    SessionStatusCompleted:
+      properties:
+        type:
+          type: string
+          const: completed
+          title: Type
+          default: completed
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+        ended_at:
+          type: string
+          title: Ended At
+          description: End time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      - ended_at
+      title: SessionStatusCompleted
+      description: Session that has completed.
+    NoMorePage_SessionResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SessionResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[SessionResponse]
+    SessionStatus:
+      oneOf:
+      - $ref: '#/components/schemas/SessionStatusToStart'
+      - $ref: '#/components/schemas/SessionStatusOngoing'
+      - $ref: '#/components/schemas/SessionStatusCompleted'
+      discriminator:
+        propertyName: type
+        mapping:
+          completed: '#/components/schemas/SessionStatusCompleted'
+          ongoing: '#/components/schemas/SessionStatusOngoing'
+          to_start: '#/components/schemas/SessionStatusToStart'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

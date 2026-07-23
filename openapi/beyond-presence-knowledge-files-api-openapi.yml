@@ -1,0 +1,423 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents Knowledge Files API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Knowledge Files
+paths:
+  /v1/knowledge-files:
+    get:
+      tags:
+      - Knowledge Files
+      summary: List Knowledge Files
+      description: List available knowledge files.
+      operationId: list_knowledge_files_v1_knowledge_files_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of Knowledge Files
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_KnowledgeFileResponse_'
+                - $ref: '#/components/schemas/NoMorePage_KnowledgeFileResponse_'
+                title: Response List Knowledge Files V1 Knowledge Files Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Knowledge Files
+      summary: Create Knowledge File
+      description: Create a new knowledge file and initialize chunked upload.
+      operationId: create_knowledge_file_v1_knowledge_files_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateKnowledgeFileRequest'
+      responses:
+        '201':
+          description: Created Knowledge File
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeFileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/knowledge-files/{id}:
+    get:
+      tags:
+      - Knowledge Files
+      summary: Retrieve Knowledge File
+      description: Retrieve knowledge file by ID.
+      operationId: get_knowledge_file_v1_knowledge_files__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Knowledge File ID.
+          title: Id
+        description: Knowledge File ID.
+      responses:
+        '200':
+          description: Requested Knowledge File
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeFileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Knowledge Files
+      summary: Delete Knowledge File
+      description: Delete a knowledge file.
+      operationId: delete_knowledge_file_v1_knowledge_files__id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Knowledge File ID.
+          title: Id
+        description: Knowledge File ID.
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/knowledge-files/{id}/upload:
+    put:
+      tags:
+      - Knowledge Files
+      summary: Upload Knowledge File Chunk
+      description: Upload a single chunk of a knowledge file.
+      operationId: upload_knowledge_file_chunk_v1_knowledge_files__id__upload_put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Knowledge File ID.
+          title: Id
+        description: Knowledge File ID.
+      - name: chunk_number
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+          description: Chunk number, starting from 0.
+          title: Chunk Number
+        description: Chunk number, starting from 0.
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/knowledge-files/{id}/submit:
+    post:
+      tags:
+      - Knowledge Files
+      summary: Submit Knowledge File
+      description: Submit and finalize a chunked knowledge file upload.
+      operationId: submit_knowledge_file_v1_knowledge_files__id__submit_post
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Knowledge File ID.
+          title: Id
+        description: Knowledge File ID.
+      responses:
+        '200':
+          description: Processed Knowledge File
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeFileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CreateTextKnowledgeFileRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          examples:
+          - Hitchhiker's Guide to the Galaxy
+        format:
+          type: string
+          const: text
+          title: Format
+        content:
+          type: string
+          maxLength: 100000
+          minLength: 1
+          title: Content
+      type: object
+      required:
+      - name
+      - format
+      - content
+      title: CreateTextKnowledgeFileRequest
+      description: Request model for creating a text knowledge file.
+    KnowledgeFileResponse:
+      oneOf:
+      - $ref: '#/components/schemas/ToUploadKnowledgeFileResponse'
+      - $ref: '#/components/schemas/AvailableKnowledgeFileResponse'
+      discriminator:
+        propertyName: status
+        mapping:
+          available: '#/components/schemas/AvailableKnowledgeFileResponse'
+          to-upload: '#/components/schemas/ToUploadKnowledgeFileResponse'
+    HasMorePage_KnowledgeFileResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/KnowledgeFileResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[KnowledgeFileResponse]
+    KnowledgeFileFormat:
+      type: string
+      enum:
+      - text
+      - pdf
+      title: KnowledgeFileFormat
+      description: Format of the knowledge file.
+    CreateKnowledgeFileRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateTextKnowledgeFileRequest'
+      - $ref: '#/components/schemas/CreatePdfKnowledgeFileRequest'
+      discriminator:
+        propertyName: format
+        mapping:
+          pdf: '#/components/schemas/CreatePdfKnowledgeFileRequest'
+          text: '#/components/schemas/CreateTextKnowledgeFileRequest'
+    NoMorePage_KnowledgeFileResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/KnowledgeFileResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[KnowledgeFileResponse]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ToUploadKnowledgeFileResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          examples:
+          - Hitchhiker's Guide to the Galaxy
+        format:
+          $ref: '#/components/schemas/KnowledgeFileFormat'
+        status:
+          type: string
+          const: to-upload
+          title: Status
+          default: to-upload
+      type: object
+      required:
+      - id
+      - name
+      - format
+      title: ToUploadKnowledgeFileResponse
+      description: Response model for a knowledge file that is to be uploaded.
+    AvailableKnowledgeFileResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          examples:
+          - Hitchhiker's Guide to the Galaxy
+        format:
+          $ref: '#/components/schemas/KnowledgeFileFormat'
+        status:
+          type: string
+          const: available
+          title: Status
+          default: available
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+      - id
+      - name
+      - format
+      - text
+      title: AvailableKnowledgeFileResponse
+      description: Response model for an available knowledge file.
+    CreatePdfKnowledgeFileRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          examples:
+          - Hitchhiker's Guide to the Galaxy
+        format:
+          type: string
+          const: pdf
+          title: Format
+        upload_num_chunks:
+          type: integer
+          maximum: 1000.0
+          exclusiveMinimum: 0.0
+          title: Upload Num Chunks
+      type: object
+      required:
+      - name
+      - format
+      - upload_num_chunks
+      title: CreatePdfKnowledgeFileRequest
+      description: Request model for creating a PDF knowledge file.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

@@ -1,0 +1,450 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents Calls API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Calls
+paths:
+  /v1/calls:
+    post:
+      tags:
+      - Calls
+      summary: Create Call
+      description: Create call.
+      operationId: create_call_v1_calls_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCallRequest'
+      responses:
+        '201':
+          description: Created Call with ID and LiveKit connection details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretCallResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Calls
+      summary: List Calls
+      description: List calls managed by your agents.
+      operationId: list_calls_v1_calls_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of Calls
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_CallResponse_'
+                - $ref: '#/components/schemas/NoMorePage_CallResponse_'
+                title: Response List Calls V1 Calls Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/calls/{id}:
+    get:
+      tags:
+      - Calls
+      summary: Retrieve Call
+      description: Retrieve call.
+      operationId: get_call_v1_calls__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Call ID.
+          title: Id
+        description: Call ID.
+      responses:
+        '200':
+          description: Requested Call
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/calls/{id}/messages:
+    get:
+      tags:
+      - Calls
+      summary: List Call Messages
+      description: List transcribed messages of a call.
+      operationId: list_messages_v1_calls__id__messages_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Call ID.
+          title: Id
+        description: Call ID.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallMessage'
+                title: Response List Messages V1 Calls  Id  Messages Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CompletedCallStatus:
+      properties:
+        type:
+          type: string
+          const: completed
+          title: Type
+          default: completed
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+        ended_at:
+          type: string
+          title: Ended At
+          description: End time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      - ended_at
+      title: CompletedCallStatus
+      description: Status for call that has completed.
+    CallStatus:
+      oneOf:
+      - $ref: '#/components/schemas/ToStartCallStatus'
+      - $ref: '#/components/schemas/OngoingCallStatus'
+      - $ref: '#/components/schemas/CompletedCallStatus'
+      discriminator:
+        propertyName: type
+        mapping:
+          completed: '#/components/schemas/CompletedCallStatus'
+          ongoing: '#/components/schemas/OngoingCallStatus'
+          to_start: '#/components/schemas/ToStartCallStatus'
+    CreateCallRequest:
+      properties:
+        agent_id:
+          type: string
+          title: Agent Id
+          description: ID of agent managing the call.
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+          description: Name of the user.
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+          description: Email of the user.
+        tags:
+          additionalProperties:
+            type: string
+            maxLength: 100
+            minLength: 1
+          propertyNames:
+            maxLength: 30
+            minLength: 1
+          type: object
+          maxProperties: 10
+          title: Tags
+          description: Tags for the call
+      type: object
+      required:
+      - agent_id
+      title: CreateCallRequest
+      description: Request body to create a call.
+    ToStartCallStatus:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: ToStartCallStatus
+      description: Status for call that has not yet started.
+    HasMorePage_CallResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CallResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[CallResponse]
+    OngoingCallStatus:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: OngoingCallStatus
+      description: Status for call that is currently ongoing.
+    CallMessage:
+      properties:
+        message:
+          type: string
+          title: Message
+          description: Text content.
+        sent_at:
+          type: string
+          title: Sent At
+          description: Sent time in ISO 8601 format.
+        sender:
+          type: string
+          enum:
+          - ai
+          - user
+          title: Sender
+          description: Sender, either 'ai' or 'user'.
+      type: object
+      required:
+      - message
+      - sent_at
+      - sender
+      title: CallMessage
+      description: Message in a call.
+    SecretCallResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        agent_id:
+          type: string
+          title: Agent Id
+          description: ID of agent managing the call.
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+          description: Name of the user.
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+          description: Email of the user.
+        tags:
+          additionalProperties:
+            type: string
+            maxLength: 100
+            minLength: 1
+          propertyNames:
+            maxLength: 30
+            minLength: 1
+          type: object
+          maxProperties: 10
+          title: Tags
+          description: Tags for the call
+        status:
+          $ref: '#/components/schemas/CallStatus'
+        livekit_url:
+          type: string
+          title: Livekit Url
+          description: LiveKit server URL to connect to.
+        livekit_token:
+          type: string
+          title: Livekit Token
+          description: JWT for joining the LiveKit room.
+      type: object
+      required:
+      - id
+      - agent_id
+      - status
+      - livekit_url
+      - livekit_token
+      title: SecretCallResponse
+      description: Response model for a call including LiveKit connection details.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    NoMorePage_CallResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CallResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[CallResponse]
+    CallResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        agent_id:
+          type: string
+          title: Agent Id
+          description: ID of agent managing the call.
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+          description: Name of the user.
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+          description: Email of the user.
+        tags:
+          additionalProperties:
+            type: string
+            maxLength: 100
+            minLength: 1
+          propertyNames:
+            maxLength: 30
+            minLength: 1
+          type: object
+          maxProperties: 10
+          title: Tags
+          description: Tags for the call
+        status:
+          $ref: '#/components/schemas/CallStatus'
+      type: object
+      required:
+      - id
+      - agent_id
+      - status
+      title: CallResponse
+      description: Response model for a call.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

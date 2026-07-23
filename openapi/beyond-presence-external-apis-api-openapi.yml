@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents External APIs API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: External APIs
+paths:
+  /v1/external-apis:
+    post:
+      tags:
+      - External APIs
+      summary: Create External API Configuration
+      description: Create external API configuration.
+      operationId: create_external_api_v1_external_apis_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExternalApiRequest'
+              description: External API configuration data.
+      responses:
+        '201':
+          description: Created External API Configuration with ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalApiResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - External APIs
+      summary: List External API Configurations
+      description: List external API configurations.
+      operationId: list_external_apis_v1_external_apis_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of External API Configurations
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_ExternalApiResponse_'
+                - $ref: '#/components/schemas/NoMorePage_ExternalApiResponse_'
+                title: Response List External Apis V1 External Apis Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/external-apis/{id}:
+    get:
+      tags:
+      - External APIs
+      summary: Retrieve External API Configuration
+      description: Retrieve external API configuration.
+      operationId: get_external_api_v1_external_apis__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: External API configuration ID.
+          title: Id
+        description: External API configuration ID.
+      responses:
+        '200':
+          description: Requested External API Configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalApiResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - External APIs
+      summary: Delete External API Configuration
+      description: Delete external API configuration.
+      operationId: delete_external_api_v1_external_apis__id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: External API configuration ID.
+          title: Id
+        description: External API configuration ID.
+      responses:
+        '204':
+          description: Successful Deletion
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CreateExternalApiRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+    ExternalApiResponse:
+      oneOf:
+      - $ref: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+      discriminator:
+        propertyName: type
+        mapping:
+          openai_compatible_llm: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+    NoMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[ExternalApiResponse]
+    CreateOpenaiCompatibleLlmExternalApiRequest:
+      properties:
+        type:
+          type: string
+          const: openai_compatible_llm
+          title: Type
+          default: openai_compatible_llm
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          title: Url
+        api_key:
+          type: string
+          format: password
+          title: Api Key
+          writeOnly: true
+      type: object
+      required:
+      - name
+      - url
+      - api_key
+      title: CreateOpenaiCompatibleLlmExternalApiRequest
+      description: Request body to create an OpenAI-compatible LLM API configuration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OpenaiCompatibleLlmExternalApiResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        type:
+          type: string
+          const: openai_compatible_llm
+          title: Type
+          default: openai_compatible_llm
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - id
+      - name
+      - url
+      title: OpenaiCompatibleLlmExternalApiResponse
+      description: Response body for an OpenAI-compatible LLM API configuration.
+    HasMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[ExternalApiResponse]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

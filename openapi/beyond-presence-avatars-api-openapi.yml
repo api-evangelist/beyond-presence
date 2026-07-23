@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: Fast Agents Avatars API
+  version: 0.1.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Avatars
+paths:
+  /v1/avatars:
+    get:
+      tags:
+      - Avatars
+      summary: List Avatars
+      description: List available avatars, both your own and public ones.
+      operationId: list_avatars_v1_avatars_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of Avatars
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/HasMorePage_AvatarResponse_'
+                - $ref: '#/components/schemas/NoMorePage_AvatarResponse_'
+                title: Response List Avatars V1 Avatars Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/avatars/{id}:
+    get:
+      tags:
+      - Avatars
+      summary: Retrieve Avatar
+      description: Retrieve avatar by ID.
+      operationId: get_avatar_v1_avatars__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Avatar ID.
+          title: Id
+        description: Avatar ID.
+      responses:
+        '200':
+          description: Requested Avatar
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvatarResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HasMorePage_AvatarResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AvatarResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[AvatarResponse]
+    Visibility:
+      type: string
+      enum:
+      - public
+      - private
+      title: Visibility
+      description: Visibility of the resource.
+    NoMorePage_AvatarResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AvatarResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[AvatarResponse]
+    AvatarStatus:
+      type: string
+      enum:
+      - to-train
+      - training
+      - available
+      - failed
+      title: AvatarStatus
+      description: Status of an avatar.
+    AvatarResponse:
+      properties:
+        visibility:
+          $ref: '#/components/schemas/Visibility'
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          title: Name
+          examples:
+          - John Doe
+          - Jane Smith
+        status:
+          $ref: '#/components/schemas/AvatarStatus'
+      type: object
+      required:
+      - visibility
+      - id
+      - name
+      - status
+      title: AvatarResponse
+      description: Response model for an avatar.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key
