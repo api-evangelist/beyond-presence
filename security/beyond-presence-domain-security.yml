@@ -1,0 +1,15 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: api.bey.dev
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 26 00:20:38 2026 GMT
+  hsts: null
+domains:
+- domain: bey.dev
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false

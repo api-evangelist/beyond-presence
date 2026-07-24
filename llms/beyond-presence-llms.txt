@@ -1,0 +1,64 @@
+# Beyond Presence
+
+## Docs
+
+- [Create Agent](https://docs.bey.dev/api-reference/agents/create-agent.md): Create agent.
+- [Delete Agent](https://docs.bey.dev/api-reference/agents/delete-agent.md): Delete agent.
+- [List Agents](https://docs.bey.dev/api-reference/agents/list-agents.md): List agents.
+- [Retrieve Agent](https://docs.bey.dev/api-reference/agents/retrieve-agent.md): Retrieve agent.
+- [Update Agent](https://docs.bey.dev/api-reference/agents/update-agent.md): Update agent.
+- [Verify API Key](https://docs.bey.dev/api-reference/authentication/verify-api-key.md): Verify authentication with API key.
+- [List Avatars](https://docs.bey.dev/api-reference/avatars/list-avatars.md): List available avatars, both your own and public ones.
+- [Retrieve Avatar](https://docs.bey.dev/api-reference/avatars/retrieve-avatar.md): Retrieve avatar by ID.
+- [Create Call](https://docs.bey.dev/api-reference/calls/create-call.md): Create call.
+- [List Call Messages](https://docs.bey.dev/api-reference/calls/list-call-messages.md): List transcribed messages of a call.
+- [List Calls](https://docs.bey.dev/api-reference/calls/list-calls.md): List calls managed by your agents.
+- [Retrieve Call](https://docs.bey.dev/api-reference/calls/retrieve-call.md): Retrieve call.
+- [Create External API Configuration](https://docs.bey.dev/api-reference/external-apis/create-external-api-configuration.md): Create external API configuration.
+- [Delete External API Configuration](https://docs.bey.dev/api-reference/external-apis/delete-external-api-configuration.md): Delete external API configuration.
+- [List External API Configurations](https://docs.bey.dev/api-reference/external-apis/list-external-api-configurations.md): List external API configurations.
+- [Retrieve External API Configuration](https://docs.bey.dev/api-reference/external-apis/retrieve-external-api-configuration.md): Retrieve external API configuration.
+- [Create Knowledge File](https://docs.bey.dev/api-reference/knowledge-files/create-knowledge-file.md): Create a new knowledge file and initialize chunked upload.
+- [Delete Knowledge File](https://docs.bey.dev/api-reference/knowledge-files/delete-knowledge-file.md): Delete a knowledge file.
+- [List Knowledge Files](https://docs.bey.dev/api-reference/knowledge-files/list-knowledge-files.md): List available knowledge files.
+- [Retrieve Knowledge File](https://docs.bey.dev/api-reference/knowledge-files/retrieve-knowledge-file.md): Retrieve knowledge file by ID.
+- [Submit Knowledge File](https://docs.bey.dev/api-reference/knowledge-files/submit-knowledge-file.md): Submit and finalize a chunked knowledge file upload.
+- [Upload Knowledge File Chunk](https://docs.bey.dev/api-reference/knowledge-files/upload-knowledge-file-chunk.md): Upload a single chunk of a knowledge file.
+- [Create LiveKit Audio-to-Video Session](https://docs.bey.dev/api-reference/sessions/create-livekit-audio-to-video-session.md): Create LiveKit speech-to-video session.
+- [List LiveKit Audio-to-Video Sessions](https://docs.bey.dev/api-reference/sessions/list-livekit-audio-to-video-sessions.md): List LiveKit speech-to-video sessions.
+- [Retrieve LiveKit Audio-to-Video Sessions](https://docs.bey.dev/api-reference/sessions/retrieve-livekit-audio-to-video-sessions.md): Retrieve LiveKit speech-to-video session.
+- [Agents](https://docs.bey.dev/get-started/agents.md): Understanding conversational AI agents and how they work
+- [API](https://docs.bey.dev/get-started/api.md): Integrate Beyond Presence programmatically into your applications
+- [Custom Avatars](https://docs.bey.dev/get-started/avatars/custom.md): Create personalized avatars exclusive to your account
+- [Default Avatars](https://docs.bey.dev/get-started/avatars/default.md): Professional avatars available to all accounts for immediate use
+- [Overview](https://docs.bey.dev/get-started/avatars/index.md): Digital human models that bring your AI agents to life
+- [Dashboard](https://docs.bey.dev/get-started/dashboard.md): Manage avatars and video agents with the Beyond Presence dashboard
+- [Introduction](https://docs.bey.dev/get-started/index.md): Your guide to building conversational video agents
+- [Overview](https://docs.bey.dev/integrations/index.md): Choose the right integration approach for your use case
+- [External LLM](https://docs.bey.dev/integrations/managed-agents/external-llm.md): Use any OpenAI-compatible LLM API
+- [Extra Capabilities](https://docs.bey.dev/integrations/managed-agents/extra-capabilities.md): Enhance agents with webcam vision and wakeup mode
+- [iframe Embedding](https://docs.bey.dev/integrations/managed-agents/iframe-embedding.md): Embed agents in websites or apps using iframe
+- [Overview](https://docs.bey.dev/integrations/managed-agents/index.md): Deploy conversational video agents with zero infrastructure management
+- [Just-in-Time Context](https://docs.bey.dev/integrations/managed-agents/just-in-time-context.md): Provide context to your agents to manage a call
+- [LiveKit Client SDK](https://docs.bey.dev/integrations/managed-agents/livekit-client-sdk.md): Connect to agents using LiveKit Client SDK
+- [Webhook Events](https://docs.bey.dev/integrations/managed-agents/webhook-events.md): Receive real-time events for calls with managed agents
+- [n8n Workflows](https://docs.bey.dev/integrations/n8n.md): Workflow automation with Beyond Presence agents and webhooks
+- [Overview](https://docs.bey.dev/integrations/speech-to-video/index.md): Add Beyond Presence avatars to your existing voice agents
+- [LiveKit Plugin](https://docs.bey.dev/integrations/speech-to-video/livekit.md): Add Beyond Presence avatars to your LiveKit agents
+- [Pipecat Integration](https://docs.bey.dev/integrations/speech-to-video/pipecat.md): Add Beyond Presence avatars to your Pipecat bots
+- [Changelog](https://docs.bey.dev/learn/changelog.md): Updates to Beyond Presence platform
+- [FAQs](https://docs.bey.dev/learn/faqs.md): Answers to common questions about Beyond Presence
+- [Language Support](https://docs.bey.dev/learn/languages.md)
+- [Roadmap](https://docs.bey.dev/learn/roadmap.md): Upcoming features and improvements
+- [Python SDK](https://docs.bey.dev/sdk-reference/python.md): Use Beyond Presence natively in Python via our Python SDK.
+- [TypeScript SDK](https://docs.bey.dev/sdk-reference/typescript.md): Use Beyond Presence natively in TypeScript and JavaScript via our TypeScript SDK.
+
+## OpenAPI Specs
+
+- [openapi](https://docs.bey.dev/openapi.json)
+
+## Optional
+
+- [Company Homepage](https://beyondpresence.ai)
+- [Discord Community](https://bey.dev/community)
+- [Public Demo](https://bey.chat)

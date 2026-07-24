@@ -1,0 +1,50 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beyond-presence-openapi-original.json
+entities:
+- name: Agent
+  description: A conversational video agent bound to an avatar and configuration.
+  operations: [create_agent, list_agents, get_agent, update_agent, delete_agent]
+- name: Avatar
+  description: A digital-human model (custom or public) an agent speaks through.
+  operations: [list_avatars, get_avatar]
+- name: Call
+  description: A conversation session managed by an agent, with transcribed messages.
+  operations: [create_call, list_calls, get_call]
+- name: Message
+  description: A transcribed message (user or agent) belonging to a call.
+  operations: [list_call_messages]
+- name: Session
+  description: A LiveKit speech-to-video (audio-to-video) session.
+  operations: [create_session, list_sessions, get_session]
+- name: KnowledgeFile
+  description: A file uploaded (chunked) to ground an agent with knowledge.
+  operations: [create_knowledge_file, list_knowledge_files, get_knowledge_file, delete_knowledge_file, upload_knowledge_file_chunk, submit_knowledge_file]
+- name: ExternalAPIConfiguration
+  description: An external/OpenAI-compatible API configuration an agent can call.
+  operations: [create_external_api, list_external_apis, get_external_api, delete_external_api]
+relationships:
+- from: Agent
+  to: Avatar
+  type: has_one
+  via: avatar_id
+- from: Call
+  to: Agent
+  type: belongs_to
+  via: agent_id
+- from: Message
+  to: Call
+  type: belongs_to
+  via: call_id
+- from: Call
+  to: Message
+  type: has_many
+  via: call_id
+- from: Agent
+  to: KnowledgeFile
+  type: has_many
+  via: knowledge_file_id
+- from: Agent
+  to: ExternalAPIConfiguration
+  type: has_many
+  via: external_api_id

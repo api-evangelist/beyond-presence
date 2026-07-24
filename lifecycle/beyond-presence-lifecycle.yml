@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.bey.dev
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.bey.dev/get-started/api
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/sunset policy published as of this pass.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.bey.dev/
+changelog: https://docs.bey.dev/learn/changelog
+roadmap: https://docs.bey.dev/learn/roadmap
+deprecated_operations: []

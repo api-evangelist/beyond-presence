@@ -1,0 +1,26 @@
+{
+  "provider": "beyond-presence",
+  "sources": [
+    "beyond-presence-agents-api-openapi.yml",
+    "beyond-presence-authentication-api-openapi.yml",
+    "beyond-presence-avatars-api-openapi.yml",
+    "beyond-presence-calls-api-openapi.yml",
+    "beyond-presence-external-apis-api-openapi.yml",
+    "beyond-presence-knowledge-files-api-openapi.yml",
+    "beyond-presence-sessions-api-openapi.yml"
+  ],
+  "outputs": [
+    "beyond-presence-agents-api-openapi.yml",
+    "beyond-presence-authentication-api-openapi.yml",
+    "beyond-presence-avatars-api-openapi.yml",
+    "beyond-presence-calls-api-openapi.yml",
+    "beyond-presence-external-apis-api-openapi.yml",
+    "beyond-presence-knowledge-files-api-openapi.yml",
+    "beyond-presence-sessions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

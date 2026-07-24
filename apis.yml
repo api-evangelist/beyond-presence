@@ -1,24 +1,233 @@
 aid: beyond-presence
 name: Beyond Presence
-description: 'Beyond Presence is a company surfaced as a portfolio company of hv-capital and added to
-  the API Evangelist network as a stub for enrichment. Sector: ai-enterprise-software. This profile is
-  a lead awaiting the enrichment pipeline.'
+description: >-
+  Beyond Presence (brand "bey") is a Europe-based AI company building real-time
+  conversational AI video agents and speech-to-video (S2V) technology. Its
+  platform lets developers deploy hyper-realistic AI video avatars that respond
+  in real time (sub-1.2s latency at up to 1080p) across HR, sales, support, and
+  coaching use cases. Two products are exposed through one REST API at
+  api.bey.dev: a Speech-to-Video API that turns audio streams into lifelike
+  avatars over LiveKit, and a Managed Agents API that runs end-to-end
+  conversational agents with knowledge files, external LLM/API configuration,
+  and webhook events. Official Python and TypeScript SDKs, an OpenAPI spec, and
+  GDPR / SOC 2 Type II compliance are published. Surfaced as an HV Capital
+  portfolio company and enriched from its public developer surface.
 url: https://raw.githubusercontent.com/api-evangelist/beyond-presence/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - hv-capital
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://beyondpresence.ai/favicon.ico
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Ai Enterprise Software
-apis: []
+- Artificial Intelligence
+- Avatars
+- Video
+- Conversational AI
+- Agents
+- Speech To Video
+- Real Time Communication
+apis:
+- aid: beyond-presence:beyond-presence-agents-api
+  name: Beyond Presence Agents API
+  description: The Agents API from Beyond Presence — 2 operation(s) for agents.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-authentication-api
+  name: Beyond Presence Authentication API
+  description: The Authentication API from Beyond Presence — 1 operation(s) for authentication.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-avatars-api
+  name: Beyond Presence Avatars API
+  description: The Avatars API from Beyond Presence — 2 operation(s) for avatars.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Avatars
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-avatars-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-calls-api
+  name: Beyond Presence Calls API
+  description: The Calls API from Beyond Presence — 3 operation(s) for calls.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-calls-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-external-apis-api
+  name: Beyond Presence External APIs API
+  description: The External APIs API from Beyond Presence — 2 operation(s) for external apis.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - External APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-external-apis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-knowledge-files-api
+  name: Beyond Presence Knowledge Files API
+  description: The Knowledge Files API from Beyond Presence — 4 operation(s) for knowledge files.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Knowledge Files
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-knowledge-files-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-sessions-api
+  name: Beyond Presence Sessions API
+  description: The Sessions API from Beyond Presence — 2 operation(s) for sessions.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: DeveloperPortal
+  url: https://docs.bey.dev
+- type: Documentation
+  url: https://docs.bey.dev/introduction
+- type: APIReference
+  url: https://docs.bey.dev/api-reference
+- type: GettingStarted
+  url: https://docs.bey.dev/quickstart
+- type: Blog
+  url: https://beyondpresence.ai/blog
+- type: Pricing
+  url: https://beyondpresence.ai/pricing
+- type: SignUp
+  url: https://app.bey.chat/
+- type: TermsOfService
+  url: https://beyondpresence.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://beyondpresence.ai/privacy-policy
+- type: Support
+  url: https://discord.com/invite/A3JTzk5aWa
+- type: GitHubOrganization
+  url: https://github.com/bey-dev
+- type: Roadmap
+  url: https://docs.bey.dev/learn/roadmap
+- type: StatusPage
+  url: https://status.bey.dev/
+- type: ChangeLog
+  url: changelog/beyond-presence-changelog.yml
+- type: TrustCenter
+  url: https://trust.bey.dev/
+- type: Compliance
+  url: https://trust.bey.dev/
+- type: LLMsTxt
+  url: llms/beyond-presence-llms.txt
+- type: Packages
+  url: packages/beyond-presence-packages.yml
+- type: SDKs
+  url: packages/beyond-presence-packages.yml
+- type: MCPServer
+  url: mcp/beyond-presence-mcp.yml
+- type: Authentication
+  url: authentication/beyond-presence-authentication.yml
+- type: Conventions
+  url: conventions/beyond-presence-conventions.yml
+- type: ErrorCatalog
+  url: errors/beyond-presence-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/beyond-presence-lifecycle.yml
+- type: Conformance
+  url: conformance/beyond-presence-conformance.yml
+- type: DataModel
+  url: data-model/beyond-presence-data-model.yml
+- type: Components
+  url: components/beyond-presence-components.yml
+- type: DomainSecurity
+  url: security/beyond-presence-domain-security.yml
+- type: Overlay
+  url: overlays/beyond-presence-openapi-overlay.yaml
+- type: Webhooks
+  url: asyncapi/beyond-presence-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

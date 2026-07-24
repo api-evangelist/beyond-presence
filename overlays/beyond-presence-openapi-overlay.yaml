@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Beyond Presence
+  version: 1.0.0
+extends: openapi/beyond-presence-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: beyond-presence
+    x-apievangelist-product: Conversational AI video agents (speech-to-video + managed agents)
+    x-apievangelist-auth: apiKey header x-api-key
+    x-apievangelist-docs: https://docs.bey.dev
+    x-apievangelist-status-page: https://status.bey.dev/
+- target: $.info
+  update:
+    title: Beyond Presence API
+    description: >-
+      Beyond Presence (bey) real-time conversational AI video-agent API. Manage
+      agents, avatars, calls, LiveKit speech-to-video sessions, knowledge files,
+      and external API configurations. The upstream spec is served with the
+      generic FastAPI title/version; this overlay names it for discovery.
+- target: $.servers
+  update:
+  - url: https://api.bey.dev
+    description: Production

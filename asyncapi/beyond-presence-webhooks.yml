@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+type: Webhooks
+source: https://docs.bey.dev/integrations/managed-agents/webhook-events
+transport: http-post-json
+configuration: >-
+  Webhook endpoint URL is configured in the dashboard (Settings -> Webhooks).
+  On save, a test event is delivered to validate the endpoint; the endpoint must
+  be publicly reachable, accept POST JSON, and return HTTP 200.
+events:
+- name: test
+  description: Sent automatically when a webhook URL is saved, to validate the endpoint.
+- name: message
+  description: Triggered whenever a message is sent during a call, by either the user or the agent.
+  payload_fields: [event_type, call_id, message, call_data]
+- name: call_ended
+  description: Triggered when a call concludes; includes the full transcript and evaluation.
+  payload_fields: [event_type, call_id, user_name, evaluation, messages]
+note: >-
+  Beyond Presence documents webhooks but publishes no AsyncAPI document. This
+  file captures the webhook event catalog; no AsyncAPI spec is fabricated.

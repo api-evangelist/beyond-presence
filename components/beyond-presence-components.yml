@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.bey.dev/integrations
+components:
+- family: Embedded Agent
+  type: iframe
+  name: iframe Embedding
+  description: >-
+    Embed a conversational video agent directly in a website or app via an
+    iframe pointed at the agent's hosted call URL.
+  docs: https://docs.bey.dev/integrations/managed-agents/iframe-embedding
+- family: Real-time Client
+  type: sdk-loader
+  name: LiveKit Client SDK
+  description: >-
+    Connect a browser/mobile client to a managed agent using the LiveKit Client
+    SDK for real-time audio/video.
+  docs: https://docs.bey.dev/integrations/managed-agents/livekit-client-sdk

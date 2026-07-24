@@ -1,0 +1,41 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.bey.dev/api-reference
+authentication:
+  style: api-key-header
+  header: x-api-key
+  ref: authentication/beyond-presence-authentication.yml
+pagination:
+  style: cursor
+  request_params:
+  - name: limit
+    description: Maximum number of results to return (default 10, max 50).
+  - name: cursor
+    description: Opaque cursor returned by a previous page to fetch the next page.
+  response_fields:
+  - name: data
+    description: Array of results for the current page.
+  - name: has_more
+    description: Whether more results are available.
+  - name: next_cursor
+    description: Cursor to pass to fetch the next page (present when has_more is true).
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or parameter is documented in the OpenAPI spec or
+    docs as of this pass.
+versioning:
+  style: uri-path
+  current: v1
+  note: All operations are served under the /v1 path prefix.
+error_envelope:
+  ref: errors/beyond-presence-problem-types.yml
+  note: >-
+    Errors are returned as JSON. Validation errors (422) use the FastAPI
+    HTTPValidationError shape ({"detail":[{"loc","msg","type"}]}); auth errors
+    (401) return a {"detail": string} object. Not RFC 9457 problem+json.
+rate_limits:
+  documented: false
+  note: No published numeric rate-limit table or rate-limit response headers found.
+webhooks:
+  ref: asyncapi/beyond-presence-webhooks.yml

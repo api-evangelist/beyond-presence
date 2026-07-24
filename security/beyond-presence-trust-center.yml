@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: searched
+source: https://beyondpresence.ai
+url: https://trust.bey.dev/
+certifications:
+- SOC 2 Type II
+- GDPR
+evidence:
+- source: https://beyondpresence.ai/
+  keywords:
+  - soc 2 type ii
+  - gdpr
+- source: https://trust.bey.dev/
+  keywords:
+  - trust center
+note: >-
+  Beyond Presence states GDPR and SOC 2 Type II compliance on its homepage and
+  operates a hosted Trust Center at trust.bey.dev (JavaScript-rendered; not
+  machine-probeable in this pass). Certifications captured from the published
+  homepage claim.

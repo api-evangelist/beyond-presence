@@ -1,0 +1,23 @@
+generated: '2026-07-18'
+method: searched
+source: https://beyondpresence.ai
+standards:
+- id: apikey-auth
+  conforms: true
+  evidence: openapi securityScheme APIKeyHeader (apiKey in header x-api-key)
+- id: oauth2
+  conforms: false
+- id: oidc
+  conforms: false
+- id: cursor-pagination
+  conforms: true
+  evidence: list operations accept limit+cursor and return data/has_more/next_cursor
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use FastAPI detail envelope, not application/problem+json
+- id: soc2-type-ii
+  conforms: true
+  evidence: SOC 2 Type II compliance stated on beyondpresence.ai and trust.bey.dev
+- id: gdpr
+  conforms: true
+  evidence: GDPR compliance stated on beyondpresence.ai and trust.bey.dev

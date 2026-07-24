@@ -1,0 +1,64 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/beyond-presence-openapi-original.json
+note: >-
+  No official hosted/remote MCP server was found for Beyond Presence as of this
+  pass (checked docs.bey.dev, the bey-dev GitHub org, and MCP registries). The
+  tool list below is a CANDIDATE derived one-to-one from the published OpenAPI
+  operations to seed a future MCP server. Not an official Beyond Presence claim.
+server:
+  name: beyond-presence
+  transport: http
+tools:
+- name: create_agent
+  description: Create a conversational video agent.
+  source_operation: openapi/beyond-presence-openapi-original.json#create_agent_v1_agents_post
+- name: list_agents
+  description: List agents.
+  source_operation: openapi/beyond-presence-openapi-original.json#list_agents_v1_agents_get
+- name: get_agent
+  description: Retrieve an agent by ID.
+  source_operation: openapi/beyond-presence-openapi-original.json#get_agent_v1_agents__id__get
+- name: update_agent
+  description: Update an agent.
+  source_operation: openapi/beyond-presence-openapi-original.json#update_agent_v1_agents__id__patch
+- name: delete_agent
+  description: Delete an agent.
+  source_operation: openapi/beyond-presence-openapi-original.json#delete_agent_v1_agents__id__delete
+- name: verify_api_key
+  description: Verify authentication with the API key.
+  source_operation: openapi/beyond-presence-openapi-original.json#verify_v1_auth_verify_get
+- name: list_avatars
+  description: List available avatars, own and public.
+  source_operation: openapi/beyond-presence-openapi-original.json#list_avatars_v1_avatars_get
+- name: get_avatar
+  description: Retrieve an avatar by ID.
+  source_operation: openapi/beyond-presence-openapi-original.json#get_avatar_v1_avatars__id__get
+- name: create_call
+  description: Create a call.
+  source_operation: openapi/beyond-presence-openapi-original.json#create_call_v1_calls_post
+- name: list_calls
+  description: List calls managed by your agents.
+  source_operation: openapi/beyond-presence-openapi-original.json#list_calls_v1_calls_get
+- name: get_call
+  description: Retrieve a call.
+  source_operation: openapi/beyond-presence-openapi-original.json#get_call_v1_calls__id__get
+- name: list_call_messages
+  description: List transcribed messages of a call.
+  source_operation: openapi/beyond-presence-openapi-original.json#list_messages_v1_calls__id__messages_get
+- name: create_session
+  description: Create a LiveKit speech-to-video session.
+  source_operation: openapi/beyond-presence-openapi-original.json#create_session_v1_sessions_post
+- name: list_sessions
+  description: List LiveKit speech-to-video sessions.
+  source_operation: openapi/beyond-presence-openapi-original.json#list_sessions_v1_sessions_get
+- name: get_session
+  description: Retrieve a LiveKit speech-to-video session.
+  source_operation: openapi/beyond-presence-openapi-original.json#get_session_v1_sessions__id__get
+- name: create_knowledge_file
+  description: Create a knowledge file and initialize chunked upload.
+  source_operation: openapi/beyond-presence-openapi-original.json#create_knowledge_file_v1_knowledge_files_post
+- name: submit_knowledge_file
+  description: Submit and finalize a chunked knowledge file upload.
+  source_operation: openapi/beyond-presence-openapi-original.json#submit_knowledge_file_v1_knowledge_files__id__submit_post

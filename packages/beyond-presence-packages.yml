@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.bey.dev/sdk-reference
+packages:
+- language: python
+  registry: pypi
+  name: bey
+  url: https://pypi.org/project/bey/
+  install: pip install bey
+  repository: https://github.com/bey-dev/bey-python
+  summary: The official Python library for the Beyond Presence API.
+  official: true
+- language: typescript
+  registry: npm
+  name: "@bey-dev/sdk"
+  url: https://www.npmjs.com/package/@bey-dev/sdk
+  install: npm install @bey-dev/sdk
+  repository: https://github.com/bey-dev/bey-typescript
+  summary: The official TypeScript/JavaScript library for the Beyond Presence API.
+  official: true
+- language: typescript
+  registry: npm
+  name: "@livekit/agents-plugin-bey"
+  url: https://www.npmjs.com/package/@livekit/agents-plugin-bey
+  install: npm install @livekit/agents-plugin-bey
+  summary: >-
+    LiveKit Agents plugin that adds Beyond Presence speech-to-video avatars to a
+    LiveKit voice agent. Published by LiveKit; first-party integration surface.
+  official: false

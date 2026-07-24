@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/beyond-presence-openapi-original.json
+skills:
+- file: beyond-presence-launch-agent-call.md
+  name: Create an agent and launch a call
+  api: openapi/beyond-presence-openapi-original.json
+  operations: [list_avatars_v1_avatars_get, create_agent_v1_agents_post, create_call_v1_calls_post, list_messages_v1_calls__id__messages_get]
+- file: beyond-presence-ground-agent-with-knowledge.md
+  name: Ground an agent with a knowledge file
+  api: openapi/beyond-presence-openapi-original.json
+  operations: [create_knowledge_file_v1_knowledge_files_post, upload_knowledge_file_chunk_v1_knowledge_files__id__upload_put, submit_knowledge_file_v1_knowledge_files__id__submit_post, update_agent_v1_agents__id__patch]

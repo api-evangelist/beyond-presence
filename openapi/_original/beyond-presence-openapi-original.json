@@ -1,0 +1,3564 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.bey.dev"
+    }
+  ],
+  "paths": {
+    "/v1/agents": {
+      "post": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Create Agent",
+        "description": "Create agent.",
+        "operationId": "create_agent_v1_agents_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAgentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Agent with ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "List Agents",
+        "description": "List agents.",
+        "operationId": "list_agents_v1_agents_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of Agents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_AgentResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_AgentResponse_"
+                    }
+                  ],
+                  "title": "Response List Agents V1 Agents Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/agents/{id}": {
+      "patch": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Update Agent",
+        "description": "Update agent.",
+        "operationId": "update_agent_v1_agents__id__patch",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Agent ID.",
+              "title": "Id"
+            },
+            "description": "Agent ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAgentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Update"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Retrieve Agent",
+        "description": "Retrieve agent.",
+        "operationId": "get_agent_v1_agents__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Agent ID.",
+              "title": "Id"
+            },
+            "description": "Agent ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested Agent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Delete Agent",
+        "description": "Delete agent.",
+        "operationId": "delete_agent_v1_agents__id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Agent ID.",
+              "title": "Id"
+            },
+            "description": "Agent ID."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Deletion"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/verify": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Verify API Key",
+        "description": "Verify authentication with API key.",
+        "operationId": "verify_v1_auth_verify_get",
+        "responses": {
+          "204": {
+            "description": "Valid API Key"
+          },
+          "401": {
+            "description": "Missing or Invalid API Key"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/avatars": {
+      "get": {
+        "tags": [
+          "Avatars"
+        ],
+        "summary": "List Avatars",
+        "description": "List available avatars, both your own and public ones.",
+        "operationId": "list_avatars_v1_avatars_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of Avatars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_AvatarResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_AvatarResponse_"
+                    }
+                  ],
+                  "title": "Response List Avatars V1 Avatars Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/avatars/{id}": {
+      "get": {
+        "tags": [
+          "Avatars"
+        ],
+        "summary": "Retrieve Avatar",
+        "description": "Retrieve avatar by ID.",
+        "operationId": "get_avatar_v1_avatars__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Avatar ID.",
+              "title": "Id"
+            },
+            "description": "Avatar ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested Avatar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calls": {
+      "post": {
+        "tags": [
+          "Calls"
+        ],
+        "summary": "Create Call",
+        "description": "Create call.",
+        "operationId": "create_call_v1_calls_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCallRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Call with ID and LiveKit connection details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretCallResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Calls"
+        ],
+        "summary": "List Calls",
+        "description": "List calls managed by your agents.",
+        "operationId": "list_calls_v1_calls_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of Calls",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_CallResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_CallResponse_"
+                    }
+                  ],
+                  "title": "Response List Calls V1 Calls Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calls/{id}": {
+      "get": {
+        "tags": [
+          "Calls"
+        ],
+        "summary": "Retrieve Call",
+        "description": "Retrieve call.",
+        "operationId": "get_call_v1_calls__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Call ID.",
+              "title": "Id"
+            },
+            "description": "Call ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested Call",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calls/{id}/messages": {
+      "get": {
+        "tags": [
+          "Calls"
+        ],
+        "summary": "List Call Messages",
+        "description": "List transcribed messages of a call.",
+        "operationId": "list_messages_v1_calls__id__messages_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Call ID.",
+              "title": "Id"
+            },
+            "description": "Call ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CallMessage"
+                  },
+                  "title": "Response List Messages V1 Calls  Id  Messages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/external-apis": {
+      "post": {
+        "tags": [
+          "External APIs"
+        ],
+        "summary": "Create External API Configuration",
+        "description": "Create external API configuration.",
+        "operationId": "create_external_api_v1_external_apis_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExternalApiRequest",
+                "description": "External API configuration data."
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created External API Configuration with ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalApiResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "summary": "List External API Configurations",
+        "description": "List external API configurations.",
+        "operationId": "list_external_apis_v1_external_apis_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of External API Configurations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_ExternalApiResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_ExternalApiResponse_"
+                    }
+                  ],
+                  "title": "Response List External Apis V1 External Apis Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/external-apis/{id}": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "summary": "Retrieve External API Configuration",
+        "description": "Retrieve external API configuration.",
+        "operationId": "get_external_api_v1_external_apis__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "External API configuration ID.",
+              "title": "Id"
+            },
+            "description": "External API configuration ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested External API Configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalApiResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "External APIs"
+        ],
+        "summary": "Delete External API Configuration",
+        "description": "Delete external API configuration.",
+        "operationId": "delete_external_api_v1_external_apis__id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "External API configuration ID.",
+              "title": "Id"
+            },
+            "description": "External API configuration ID."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Deletion"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/knowledge-files": {
+      "get": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "List Knowledge Files",
+        "description": "List available knowledge files.",
+        "operationId": "list_knowledge_files_v1_knowledge_files_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of Knowledge Files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_KnowledgeFileResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_KnowledgeFileResponse_"
+                    }
+                  ],
+                  "title": "Response List Knowledge Files V1 Knowledge Files Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "Create Knowledge File",
+        "description": "Create a new knowledge file and initialize chunked upload.",
+        "operationId": "create_knowledge_file_v1_knowledge_files_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKnowledgeFileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Knowledge File",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/knowledge-files/{id}": {
+      "get": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "Retrieve Knowledge File",
+        "description": "Retrieve knowledge file by ID.",
+        "operationId": "get_knowledge_file_v1_knowledge_files__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Knowledge File ID.",
+              "title": "Id"
+            },
+            "description": "Knowledge File ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested Knowledge File",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "Delete Knowledge File",
+        "description": "Delete a knowledge file.",
+        "operationId": "delete_knowledge_file_v1_knowledge_files__id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Knowledge File ID.",
+              "title": "Id"
+            },
+            "description": "Knowledge File ID."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/knowledge-files/{id}/upload": {
+      "put": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "Upload Knowledge File Chunk",
+        "description": "Upload a single chunk of a knowledge file.",
+        "operationId": "upload_knowledge_file_chunk_v1_knowledge_files__id__upload_put",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Knowledge File ID.",
+              "title": "Id"
+            },
+            "description": "Knowledge File ID."
+          },
+          {
+            "name": "chunk_number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Chunk number, starting from 0.",
+              "title": "Chunk Number"
+            },
+            "description": "Chunk number, starting from 0."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/knowledge-files/{id}/submit": {
+      "post": {
+        "tags": [
+          "Knowledge Files"
+        ],
+        "summary": "Submit Knowledge File",
+        "description": "Submit and finalize a chunked knowledge file upload.",
+        "operationId": "submit_knowledge_file_v1_knowledge_files__id__submit_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Knowledge File ID.",
+              "title": "Id"
+            },
+            "description": "Knowledge File ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Processed Knowledge File",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "Create LiveKit Audio-to-Video Session",
+        "description": "Create LiveKit speech-to-video session.\n\nTip: do not to use this directly, use the LiveKit plugin instead.\nSee <https://docs.livekit.io/agents/integrations/avatar/bey>.",
+        "operationId": "create_session_v1_sessions_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created LiveKit Audio-to-Video Session with ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "List LiveKit Audio-to-Video Sessions",
+        "description": "List LiveKit speech-to-video sessions.",
+        "operationId": "list_sessions_v1_sessions_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "exclusiveMinimum": 0,
+              "description": "Maximum number of objects to return.",
+              "default": 10,
+              "title": "Limit"
+            },
+            "description": "Maximum number of objects to return."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cursor for pagination.",
+              "title": "Cursor"
+            },
+            "description": "Cursor for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated List of LiveKit Audio-to-Video Sessions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/HasMorePage_SessionResponse_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NoMorePage_SessionResponse_"
+                    }
+                  ],
+                  "title": "Response List Sessions V1 Sessions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/sessions/{id}": {
+      "get": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "Retrieve LiveKit Audio-to-Video Sessions",
+        "description": "Retrieve LiveKit speech-to-video session.",
+        "operationId": "get_session_v1_sessions__id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "LiveKit speech-to-video session ID.",
+              "title": "Id"
+            },
+            "description": "LiveKit speech-to-video session ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgentCapability": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/WebcamVisionAgentCapability"
+          },
+          {
+            "$ref": "#/components/schemas/WakeupModeAgentCapability"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "wakeup_mode": "#/components/schemas/WakeupModeAgentCapability",
+            "webcam_vision": "#/components/schemas/WebcamVisionAgentCapability"
+          }
+        }
+      },
+      "AgentCapabilityList": {
+        "items": {
+          "$ref": "#/components/schemas/AgentCapability"
+        },
+        "type": "array"
+      },
+      "AgentLlm": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/LivekitAgentLlm"
+          },
+          {
+            "$ref": "#/components/schemas/OpenaiAgentLlm"
+          },
+          {
+            "$ref": "#/components/schemas/OpenaiCompatibleAgentLlm"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "livekit": "#/components/schemas/LivekitAgentLlm",
+            "openai": "#/components/schemas/OpenaiAgentLlm",
+            "openai_compatible": "#/components/schemas/OpenaiCompatibleAgentLlm"
+          }
+        }
+      },
+      "AgentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Display name to use. Also used when addressed in conversations.",
+            "examples": [
+              "Jarvis",
+              "HAL 9000"
+            ]
+          },
+          "avatar_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "system_prompt": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "System Prompt",
+            "description": "System prompt to use.",
+            "examples": [
+              "You are a helpful assistant."
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Language to use.",
+            "examples": [
+              "en",
+              "en-US",
+              "de"
+            ]
+          },
+          "greeting": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Greeting",
+            "description": "What to say when a call starts.",
+            "examples": [
+              "Hello!"
+            ]
+          },
+          "max_session_length_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 90.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Session Length Minutes",
+            "description": "Maximum session length in minutes.",
+            "examples": [
+              30
+            ]
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/AgentCapabilityList",
+            "description": "Extra capabilities to manage calls.",
+            "examples": [
+              [
+                {
+                  "type": "webcam_vision"
+                },
+                {
+                  "triggers": [
+                    "hey agent",
+                    "hi pal"
+                  ],
+                  "type": "wakeup_mode"
+                }
+              ]
+            ]
+          },
+          "llm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentLlm"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for LLM to use.",
+            "examples": [
+              {
+                "type": "openai"
+              },
+              {
+                "api_id": "01234567-89ab-cdef-0123-456789abcdef",
+                "model": "gpt-4o-mini",
+                "temperature": 0.7,
+                "type": "openai_compatible"
+              }
+            ]
+          },
+          "tts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentTts"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for TTS to use.",
+            "examples": [
+              {
+                "type": "elevenlabs",
+                "voice": "21m00Tcm4TlvDq8ikWAM"
+              }
+            ]
+          },
+          "knowledge_file_ids": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Knowledge File Ids",
+            "description": "IDs of knowledge files to refer to."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "avatar_id",
+          "system_prompt"
+        ],
+        "title": "AgentResponse",
+        "description": "Response model for an agent."
+      },
+      "AgentTts": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/LivekitAgentTts"
+          },
+          {
+            "$ref": "#/components/schemas/ElevenlabsAgentTts"
+          },
+          {
+            "$ref": "#/components/schemas/DeepgramAgentTts"
+          },
+          {
+            "$ref": "#/components/schemas/OpenaiAgentTts"
+          },
+          {
+            "$ref": "#/components/schemas/GoogleAgentTts"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "deepgram": "#/components/schemas/DeepgramAgentTts",
+            "elevenlabs": "#/components/schemas/ElevenlabsAgentTts",
+            "google_tts": "#/components/schemas/GoogleAgentTts",
+            "livekit": "#/components/schemas/LivekitAgentTts",
+            "openai_tts": "#/components/schemas/OpenaiAgentTts"
+          }
+        }
+      },
+      "AvailableKnowledgeFileResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "examples": [
+              "Hitchhiker's Guide to the Galaxy"
+            ]
+          },
+          "format": {
+            "$ref": "#/components/schemas/KnowledgeFileFormat"
+          },
+          "status": {
+            "type": "string",
+            "const": "available",
+            "title": "Status",
+            "default": "available"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "format",
+          "text"
+        ],
+        "title": "AvailableKnowledgeFileResponse",
+        "description": "Response model for an available knowledge file."
+      },
+      "AvatarResponse": {
+        "properties": {
+          "visibility": {
+            "$ref": "#/components/schemas/Visibility"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "examples": [
+              "John Doe",
+              "Jane Smith"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/AvatarStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "visibility",
+          "id",
+          "name",
+          "status"
+        ],
+        "title": "AvatarResponse",
+        "description": "Response model for an avatar."
+      },
+      "AvatarStatus": {
+        "type": "string",
+        "enum": [
+          "to-train",
+          "training",
+          "available",
+          "failed"
+        ],
+        "title": "AvatarStatus",
+        "description": "Status of an avatar."
+      },
+      "CallMessage": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Text content."
+          },
+          "sent_at": {
+            "type": "string",
+            "title": "Sent At",
+            "description": "Sent time in ISO 8601 format."
+          },
+          "sender": {
+            "type": "string",
+            "enum": [
+              "ai",
+              "user"
+            ],
+            "title": "Sender",
+            "description": "Sender, either 'ai' or 'user'."
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "sent_at",
+          "sender"
+        ],
+        "title": "CallMessage",
+        "description": "Message in a call."
+      },
+      "CallResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "ID of agent managing the call."
+          },
+          "user_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Name",
+            "description": "Name of the user."
+          },
+          "user_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Email",
+            "description": "Email of the user."
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 1
+            },
+            "propertyNames": {
+              "maxLength": 30,
+              "minLength": 1
+            },
+            "type": "object",
+            "maxProperties": 10,
+            "title": "Tags",
+            "description": "Tags for the call"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CallStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "agent_id",
+          "status"
+        ],
+        "title": "CallResponse",
+        "description": "Response model for a call."
+      },
+      "CallStatus": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ToStartCallStatus"
+          },
+          {
+            "$ref": "#/components/schemas/OngoingCallStatus"
+          },
+          {
+            "$ref": "#/components/schemas/CompletedCallStatus"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "completed": "#/components/schemas/CompletedCallStatus",
+            "ongoing": "#/components/schemas/OngoingCallStatus",
+            "to_start": "#/components/schemas/ToStartCallStatus"
+          }
+        }
+      },
+      "CompletedCallStatus": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "completed",
+            "title": "Type",
+            "default": "completed"
+          },
+          "started_at": {
+            "type": "string",
+            "title": "Started At",
+            "description": "Start time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          },
+          "ended_at": {
+            "type": "string",
+            "title": "Ended At",
+            "description": "End time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "started_at",
+          "ended_at"
+        ],
+        "title": "CompletedCallStatus",
+        "description": "Status for call that has completed."
+      },
+      "CreateAgentRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Display name to use. Also used when addressed in conversations.",
+            "examples": [
+              "Jarvis",
+              "HAL 9000"
+            ]
+          },
+          "avatar_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "system_prompt": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "System Prompt",
+            "description": "System prompt to use.",
+            "examples": [
+              "You are a helpful assistant."
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Language to use.",
+            "examples": [
+              "en",
+              "en-US",
+              "de"
+            ]
+          },
+          "greeting": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Greeting",
+            "description": "What to say when a call starts.",
+            "examples": [
+              "Hello!"
+            ]
+          },
+          "max_session_length_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 90.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Session Length Minutes",
+            "description": "Maximum session length in minutes.",
+            "examples": [
+              30
+            ]
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/AgentCapabilityList",
+            "description": "Extra capabilities to manage calls.",
+            "examples": [
+              [
+                {
+                  "type": "webcam_vision"
+                },
+                {
+                  "triggers": [
+                    "hey agent",
+                    "hi pal"
+                  ],
+                  "type": "wakeup_mode"
+                }
+              ]
+            ]
+          },
+          "llm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentLlm"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for LLM to use.",
+            "examples": [
+              {
+                "type": "openai"
+              },
+              {
+                "api_id": "01234567-89ab-cdef-0123-456789abcdef",
+                "model": "gpt-4o-mini",
+                "temperature": 0.7,
+                "type": "openai_compatible"
+              }
+            ]
+          },
+          "tts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentTts"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for TTS to use.",
+            "examples": [
+              {
+                "type": "elevenlabs",
+                "voice": "21m00Tcm4TlvDq8ikWAM"
+              }
+            ]
+          },
+          "knowledge_file_ids": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Knowledge File Ids",
+            "description": "IDs of knowledge files to refer to."
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "avatar_id",
+          "system_prompt"
+        ],
+        "title": "CreateAgentRequest",
+        "description": "Request body to create an agent."
+      },
+      "CreateCallRequest": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "ID of agent managing the call."
+          },
+          "user_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Name",
+            "description": "Name of the user."
+          },
+          "user_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Email",
+            "description": "Email of the user."
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 1
+            },
+            "propertyNames": {
+              "maxLength": 30,
+              "minLength": 1
+            },
+            "type": "object",
+            "maxProperties": 10,
+            "title": "Tags",
+            "description": "Tags for the call"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id"
+        ],
+        "title": "CreateCallRequest",
+        "description": "Request body to create a call."
+      },
+      "CreateExternalApiRequest": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "openai_compatible_llm": "#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest"
+          }
+        }
+      },
+      "CreateKnowledgeFileRequest": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CreateTextKnowledgeFileRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CreatePdfKnowledgeFileRequest"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "format",
+          "mapping": {
+            "pdf": "#/components/schemas/CreatePdfKnowledgeFileRequest",
+            "text": "#/components/schemas/CreateTextKnowledgeFileRequest"
+          }
+        }
+      },
+      "CreateLivekitSessionRequest": {
+        "properties": {
+          "transport": {
+            "type": "string",
+            "const": "livekit",
+            "title": "Transport",
+            "default": "livekit"
+          },
+          "avatar_id": {
+            "type": "string",
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "URL of LiveKit server the avatar worker should connect to.",
+            "examples": [
+              "wss://<your-domain>.livekit.cloud"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "format": "password",
+            "title": "Token",
+            "description": "The token used to join your LiveKit room.",
+            "writeOnly": true,
+            "examples": [
+              "<your-livekit-token>"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "avatar_id",
+          "url",
+          "token"
+        ],
+        "title": "CreateLivekitSessionRequest",
+        "description": "Request body to create a LiveKit speech-to-video session."
+      },
+      "CreateOpenaiCompatibleLlmExternalApiRequest": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "openai_compatible_llm",
+            "title": "Type",
+            "default": "openai_compatible_llm"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "api_key": {
+            "type": "string",
+            "format": "password",
+            "title": "Api Key",
+            "writeOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "url",
+          "api_key"
+        ],
+        "title": "CreateOpenaiCompatibleLlmExternalApiRequest",
+        "description": "Request body to create an OpenAI-compatible LLM API configuration."
+      },
+      "CreatePdfKnowledgeFileRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "examples": [
+              "Hitchhiker's Guide to the Galaxy"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "const": "pdf",
+            "title": "Format"
+          },
+          "upload_num_chunks": {
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Upload Num Chunks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "format",
+          "upload_num_chunks"
+        ],
+        "title": "CreatePdfKnowledgeFileRequest",
+        "description": "Request model for creating a PDF knowledge file."
+      },
+      "CreatePipecatSessionRequest": {
+        "properties": {
+          "transport": {
+            "type": "string",
+            "const": "pipecat",
+            "title": "Transport",
+            "default": "pipecat"
+          },
+          "avatar_id": {
+            "type": "string",
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "URL of Daily room the video bot should connect to.",
+            "examples": [
+              "wss://<your-domain>.pipecat.cloud"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "format": "password",
+            "title": "Token",
+            "description": "The token used to join your Daily room.",
+            "writeOnly": true,
+            "examples": [
+              "<your-pipecat-token>"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "avatar_id",
+          "url",
+          "token"
+        ],
+        "title": "CreatePipecatSessionRequest",
+        "description": "Request body to create a Pipecat speech-to-video session."
+      },
+      "CreateSessionRequest": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CreateLivekitSessionRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CreatePipecatSessionRequest"
+          }
+        ]
+      },
+      "CreateTextKnowledgeFileRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "examples": [
+              "Hitchhiker's Guide to the Galaxy"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "const": "text",
+            "title": "Format"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 100000,
+            "minLength": 1,
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "format",
+          "content"
+        ],
+        "title": "CreateTextKnowledgeFileRequest",
+        "description": "Request model for creating a text knowledge file."
+      },
+      "DeepgramAgentTts": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "deepgram",
+            "title": "Type",
+            "default": "deepgram"
+          },
+          "voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voice"
+          }
+        },
+        "type": "object",
+        "title": "DeepgramAgentTts",
+        "description": "Configuration for Deepgram TTS."
+      },
+      "ElevenlabsAgentTts": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "elevenlabs",
+            "title": "Type",
+            "default": "elevenlabs"
+          },
+          "voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voice"
+          }
+        },
+        "type": "object",
+        "title": "ElevenlabsAgentTts",
+        "description": "Configuration for Elevenlabs TTS."
+      },
+      "ExternalApiResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OpenaiCompatibleLlmExternalApiResponse"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "openai_compatible_llm": "#/components/schemas/OpenaiCompatibleLlmExternalApiResponse"
+          }
+        }
+      },
+      "GoogleAgentTts": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "google_tts",
+            "title": "Type",
+            "default": "google_tts"
+          },
+          "voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voice"
+          }
+        },
+        "type": "object",
+        "title": "GoogleAgentTts",
+        "description": "Configuration for Google TTS."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HasMorePage_AgentResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AgentResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[AgentResponse]"
+      },
+      "HasMorePage_AvatarResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AvatarResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[AvatarResponse]"
+      },
+      "HasMorePage_CallResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CallResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[CallResponse]"
+      },
+      "HasMorePage_ExternalApiResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalApiResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[ExternalApiResponse]"
+      },
+      "HasMorePage_KnowledgeFileResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeFileResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[KnowledgeFileResponse]"
+      },
+      "HasMorePage_SessionResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SessionResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": true,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": true
+          },
+          "next_cursor": {
+            "type": "string",
+            "title": "Next Cursor",
+            "description": "The cursor for the next page of objects."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "HasMorePage[SessionResponse]"
+      },
+      "KnowledgeFileFormat": {
+        "type": "string",
+        "enum": [
+          "text",
+          "pdf"
+        ],
+        "title": "KnowledgeFileFormat",
+        "description": "Format of the knowledge file."
+      },
+      "KnowledgeFileResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ToUploadKnowledgeFileResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AvailableKnowledgeFileResponse"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "status",
+          "mapping": {
+            "available": "#/components/schemas/AvailableKnowledgeFileResponse",
+            "to-upload": "#/components/schemas/ToUploadKnowledgeFileResponse"
+          }
+        }
+      },
+      "Language": {
+        "type": "string",
+        "enum": [
+          "ar",
+          "ar-SA",
+          "bn",
+          "bg",
+          "zh",
+          "cs",
+          "da",
+          "nl",
+          "en",
+          "en-AU",
+          "en-GB",
+          "en-US",
+          "fi",
+          "fr",
+          "fr-CA",
+          "fr-FR",
+          "de",
+          "el",
+          "hi",
+          "hu",
+          "id",
+          "it",
+          "ja",
+          "kk",
+          "ko",
+          "ms",
+          "no",
+          "pl",
+          "pt",
+          "pt-BR",
+          "pt-PT",
+          "ro",
+          "ru",
+          "sk",
+          "es",
+          "sv",
+          "tr",
+          "uk",
+          "ur",
+          "vi"
+        ],
+        "title": "Language",
+        "description": "Language for communication."
+      },
+      "LivekitAgentLlm": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "livekit",
+            "title": "Type",
+            "default": "livekit"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Effort"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model"
+        ],
+        "title": "LivekitAgentLlm",
+        "description": "Configuration for LLMs supported via LiveKit Inference."
+      },
+      "LivekitAgentTts": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "livekit",
+            "title": "Type",
+            "default": "livekit"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "voice": {
+            "type": "string",
+            "title": "Voice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "voice"
+        ],
+        "title": "LivekitAgentTts",
+        "description": "Configuration for TTS supported via LiveKit Inference."
+      },
+      "LivekitSessionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "transport": {
+            "type": "string",
+            "const": "livekit",
+            "title": "Transport",
+            "default": "livekit"
+          },
+          "avatar_id": {
+            "type": "string",
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/SessionStatus"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "URL of LiveKit server the avatar worker should connect to.",
+            "examples": [
+              "wss://<your-domain>.livekit.cloud"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "avatar_id",
+          "status",
+          "url"
+        ],
+        "title": "LivekitSessionResponse",
+        "description": "Response body for a LiveKit speech-to-video session."
+      },
+      "NoMorePage_AgentResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AgentResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[AgentResponse]"
+      },
+      "NoMorePage_AvatarResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AvatarResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[AvatarResponse]"
+      },
+      "NoMorePage_CallResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CallResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[CallResponse]"
+      },
+      "NoMorePage_ExternalApiResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalApiResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[ExternalApiResponse]"
+      },
+      "NoMorePage_KnowledgeFileResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeFileResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[KnowledgeFileResponse]"
+      },
+      "NoMorePage_SessionResponse_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SessionResponse"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of objects."
+          },
+          "has_more": {
+            "type": "boolean",
+            "const": false,
+            "title": "Has More",
+            "description": "Whether there are more objects to fetch.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "NoMorePage[SessionResponse]"
+      },
+      "OngoingCallStatus": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ongoing",
+            "title": "Type",
+            "default": "ongoing"
+          },
+          "started_at": {
+            "type": "string",
+            "title": "Started At",
+            "description": "Start time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "started_at"
+        ],
+        "title": "OngoingCallStatus",
+        "description": "Status for call that is currently ongoing."
+      },
+      "OpenaiAgentLlm": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "openai",
+            "title": "Type",
+            "default": "openai"
+          },
+          "model": {
+            "type": "string",
+            "enum": [
+              "gpt-4.1-mini",
+              "gpt-4.1"
+            ],
+            "title": "Model",
+            "default": "gpt-4.1-mini"
+          }
+        },
+        "type": "object",
+        "title": "OpenaiAgentLlm",
+        "description": "Configuration for OpenAI LLM."
+      },
+      "OpenaiAgentTts": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "openai_tts",
+            "title": "Type",
+            "default": "openai_tts"
+          },
+          "voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voice"
+          }
+        },
+        "type": "object",
+        "title": "OpenaiAgentTts",
+        "description": "Configuration for OpenAI TTS."
+      },
+      "OpenaiCompatibleAgentLlm": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "openai_compatible",
+            "title": "Type",
+            "default": "openai_compatible"
+          },
+          "api_id": {
+            "type": "string",
+            "title": "Api Id"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "temperature": {
+            "type": "number",
+            "title": "Temperature"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_id",
+          "model",
+          "temperature"
+        ],
+        "title": "OpenaiCompatibleAgentLlm",
+        "description": "Configuration for an LLM provided by an OpenAI-compatible API.\n\nThe notion of \"OpenAI-compatible API\" is somewhat fuzzy, there is no\nagreed upon standard for what it means.\nIn practice, we care if the API is compatible with how LiveKit's openai\nplugin interacts with it, i.e. a subset of OpenAI's API specification that\nprovides chat completions:\nhttps://platform.openai.com/docs/api-reference/completions"
+      },
+      "OpenaiCompatibleLlmExternalApiResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "const": "openai_compatible_llm",
+            "title": "Type",
+            "default": "openai_compatible_llm"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
+        "title": "OpenaiCompatibleLlmExternalApiResponse",
+        "description": "Response body for an OpenAI-compatible LLM API configuration."
+      },
+      "PipecatSessionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "transport": {
+            "type": "string",
+            "const": "pipecat",
+            "title": "Transport",
+            "default": "pipecat"
+          },
+          "avatar_id": {
+            "type": "string",
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/SessionStatus"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "URL of Daily room the video bot should connect to.",
+            "examples": [
+              "wss://<your-domain>.pipecat.cloud"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "avatar_id",
+          "status",
+          "url"
+        ],
+        "title": "PipecatSessionResponse",
+        "description": "Response body for a Pipecat speech-to-video session."
+      },
+      "SecretCallResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "ID of agent managing the call."
+          },
+          "user_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Name",
+            "description": "Name of the user."
+          },
+          "user_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Email",
+            "description": "Email of the user."
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 1
+            },
+            "propertyNames": {
+              "maxLength": 30,
+              "minLength": 1
+            },
+            "type": "object",
+            "maxProperties": 10,
+            "title": "Tags",
+            "description": "Tags for the call"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CallStatus"
+          },
+          "livekit_url": {
+            "type": "string",
+            "title": "Livekit Url",
+            "description": "LiveKit server URL to connect to."
+          },
+          "livekit_token": {
+            "type": "string",
+            "title": "Livekit Token",
+            "description": "JWT for joining the LiveKit room."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "agent_id",
+          "status",
+          "livekit_url",
+          "livekit_token"
+        ],
+        "title": "SecretCallResponse",
+        "description": "Response model for a call including LiveKit connection details."
+      },
+      "SessionResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/LivekitSessionResponse"
+          },
+          {
+            "$ref": "#/components/schemas/PipecatSessionResponse"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "transport",
+          "mapping": {
+            "livekit": "#/components/schemas/LivekitSessionResponse",
+            "pipecat": "#/components/schemas/PipecatSessionResponse"
+          }
+        }
+      },
+      "SessionStatus": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SessionStatusToStart"
+          },
+          {
+            "$ref": "#/components/schemas/SessionStatusOngoing"
+          },
+          {
+            "$ref": "#/components/schemas/SessionStatusCompleted"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "completed": "#/components/schemas/SessionStatusCompleted",
+            "ongoing": "#/components/schemas/SessionStatusOngoing",
+            "to_start": "#/components/schemas/SessionStatusToStart"
+          }
+        }
+      },
+      "SessionStatusCompleted": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "completed",
+            "title": "Type",
+            "default": "completed"
+          },
+          "started_at": {
+            "type": "string",
+            "title": "Started At",
+            "description": "Start time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          },
+          "ended_at": {
+            "type": "string",
+            "title": "Ended At",
+            "description": "End time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "started_at",
+          "ended_at"
+        ],
+        "title": "SessionStatusCompleted",
+        "description": "Session that has completed."
+      },
+      "SessionStatusOngoing": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ongoing",
+            "title": "Type",
+            "default": "ongoing"
+          },
+          "started_at": {
+            "type": "string",
+            "title": "Started At",
+            "description": "Start time in ISO 8601 format.",
+            "examples": [
+              "2022-01-01T00:00:00Z"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "started_at"
+        ],
+        "title": "SessionStatusOngoing",
+        "description": "Session that is currently ongoing."
+      },
+      "SessionStatusToStart": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "to_start",
+            "title": "Type",
+            "default": "to_start"
+          }
+        },
+        "type": "object",
+        "title": "SessionStatusToStart",
+        "description": "Session that has not yet started."
+      },
+      "ToStartCallStatus": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "to_start",
+            "title": "Type",
+            "default": "to_start"
+          }
+        },
+        "type": "object",
+        "title": "ToStartCallStatus",
+        "description": "Status for call that has not yet started."
+      },
+      "ToUploadKnowledgeFileResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique identifier of the object in the database.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "examples": [
+              "Hitchhiker's Guide to the Galaxy"
+            ]
+          },
+          "format": {
+            "$ref": "#/components/schemas/KnowledgeFileFormat"
+          },
+          "status": {
+            "type": "string",
+            "const": "to-upload",
+            "title": "Status",
+            "default": "to-upload"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "format"
+        ],
+        "title": "ToUploadKnowledgeFileResponse",
+        "description": "Response model for a knowledge file that is to be uploaded."
+      },
+      "UpdateAgentRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Display name to use. Also used when addressed in conversations.",
+            "examples": [
+              "Jarvis",
+              "HAL 9000"
+            ]
+          },
+          "avatar_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Avatar Id",
+            "description": "ID of avatar to use.",
+            "examples": [
+              "01234567-89ab-cdef-0123-456789abcdef"
+            ]
+          },
+          "system_prompt": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "System Prompt",
+            "description": "System prompt to use.",
+            "examples": [
+              "You are a helpful assistant."
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Language to use.",
+            "examples": [
+              "en",
+              "en-US",
+              "de"
+            ]
+          },
+          "greeting": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Greeting",
+            "description": "What to say when a call starts.",
+            "examples": [
+              "Hello!"
+            ]
+          },
+          "max_session_length_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 90.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Session Length Minutes",
+            "description": "Maximum session length in minutes.",
+            "examples": [
+              30
+            ]
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/AgentCapabilityList",
+            "description": "Extra capabilities to manage calls.",
+            "examples": [
+              [
+                {
+                  "type": "webcam_vision"
+                },
+                {
+                  "triggers": [
+                    "hey agent",
+                    "hi pal"
+                  ],
+                  "type": "wakeup_mode"
+                }
+              ]
+            ]
+          },
+          "llm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentLlm"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for LLM to use.",
+            "examples": [
+              {
+                "type": "openai"
+              },
+              {
+                "api_id": "01234567-89ab-cdef-0123-456789abcdef",
+                "model": "gpt-4o-mini",
+                "temperature": 0.7,
+                "type": "openai_compatible"
+              }
+            ]
+          },
+          "tts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AgentTts"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Configuration for TTS to use.",
+            "examples": [
+              {
+                "type": "elevenlabs",
+                "voice": "21m00Tcm4TlvDq8ikWAM"
+              }
+            ]
+          },
+          "knowledge_file_ids": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Knowledge File Ids",
+            "description": "IDs of knowledge files to refer to."
+          }
+        },
+        "type": "object",
+        "title": "UpdateAgentRequest",
+        "description": "Request body to update an agent. Omitted fields are unchanged."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Visibility": {
+        "type": "string",
+        "enum": [
+          "public",
+          "private"
+        ],
+        "title": "Visibility",
+        "description": "Visibility of the resource."
+      },
+      "WakeupModeAgentCapability": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "wakeup_mode",
+            "title": "Type",
+            "default": "wakeup_mode"
+          },
+          "triggers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Triggers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "triggers"
+        ],
+        "title": "WakeupModeAgentCapability",
+        "description": "Agent capability to wake up only on specific keywords."
+      },
+      "WebcamVisionAgentCapability": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "webcam_vision",
+            "title": "Type",
+            "default": "webcam_vision"
+          }
+        },
+        "type": "object",
+        "title": "WebcamVisionAgentCapability",
+        "description": "Agent capability to see user camera feed."
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "description": "Your Beyond Presence API Key.",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beyond-presence-openapi-original.json
+format: non-standard
+note: >-
+  Derived from the 4xx/5xx responses declared across the OpenAPI operations.
+  Beyond Presence uses FastAPI defaults: 422 returns HTTPValidationError
+  ({"detail":[{"loc","msg","type"}]}); 401 returns {"detail": string}. Responses
+  are not application/problem+json (RFC 9457).
+problems:
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid x-api-key. Verify the key via GET /v1/auth/verify.
+  envelope: '{"detail": string}'
+  applies_to: all operations
+- status: 422
+  title: Validation Error
+  description: >-
+    Request body or parameters failed validation. The detail array lists each
+    invalid field with its location (loc), message (msg), and error type.
+  envelope: '{"detail": [{"loc": [...], "msg": string, "type": string}]}'
+  schema: HTTPValidationError
+  applies_to: >-
+    operations with path/query/body parameters (agents, calls, sessions,
+    knowledge-files, external-apis)

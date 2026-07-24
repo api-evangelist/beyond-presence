@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.bey.dev/learn/changelog
+scheme: month-year
+current: v1
+entries:
+- date: '2025-10'
+  breaking: false
+  highlights:
+  - Added JavaScript support to the LiveKit speech-to-video plugin.
+  - Added an Update Agent endpoint to the API reference.
+  - Added a Pipecat integration for speech-to-video.
+  - Embedded a live demo as an iframe in Getting Started.
+  - Refreshed the set of default avatars.
+- date: '2025-09'
+  breaking: false
+  highlights:
+  - Complete documentation restructure and navigation cleanup.
+  - Added AI-powered chat integration for instant help in the docs.
+  - Mobile optimization improvements.
