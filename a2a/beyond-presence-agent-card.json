@@ -1,0 +1,38 @@
+{
+  "name": "Beyond Presence",
+  "url": "https://docs.bey.dev/",
+  "version": "1.0.0",
+  "protocolVersion": "0.3",
+  "preferredTransport": "HTTP+JSON",
+  "supportedInterfaces": [
+    {
+      "url": "https://docs.bey.dev/",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "0.3"
+    }
+  ],
+  "provider": {
+    "url": "https://docs.bey.dev/",
+    "organization": "Beyond Presence"
+  },
+  "documentationUrl": "https://docs.bey.dev/",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "beyondpresence",
+      "name": "Beyondpresence",
+      "description": "Use when building conversational video agents, integrating AI avatars into applications, managing agent deployments, configuring webhooks for real-time conversation events, or embedding video agents in websites. Reach for this skill when working with managed agents, speech-to-video integrations, or programmatic agent management via API.",
+      "tags": [],
+      "url": "https://docs.bey.dev/.well-known/agent-skills/beyondpresence/skill.md"
+    }
+  ]
+}
