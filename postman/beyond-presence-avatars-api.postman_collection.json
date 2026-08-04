@@ -1,0 +1,379 @@
+{
+  "info": {
+    "_postman_id": "2dc50ebf-0748-49f5-97f2-697324c59716",
+    "name": "Fast Agents Avatars API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:04.000Z",
+    "updatedAt": "2026-07-28T01:13:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2dc50ebf-0748-49f5-97f2-697324c59716"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "avatars",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieve Avatar",
+                  "id": "f89bf4da-1bd8-42ab-8a88-e414e7172cd1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/avatars/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "avatars",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "80fdf61f-a35b-480c-a3dc-94bef4e3f58d",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Avatar ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve avatar by ID."
+                  },
+                  "response": [
+                    {
+                      "id": "4a66d9a4-e86a-438f-9759-312bac9481af",
+                      "name": "Requested Avatar",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/avatars/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "avatars",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"visibility\": \"public\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"status\": \"failed\"\n}",
+                      "createdAt": "2026-07-28T01:13:05.000Z",
+                      "updatedAt": "2026-07-28T01:13:05.000Z",
+                      "uid": "35240-4a66d9a4-e86a-438f-9759-312bac9481af"
+                    },
+                    {
+                      "id": "bc9483af-810b-4a88-a25b-f75be2995fee",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/avatars/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "avatars",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:05.000Z",
+                      "updatedAt": "2026-07-28T01:13:05.000Z",
+                      "uid": "35240-bc9483af-810b-4a88-a25b-f75be2995fee"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-f89bf4da-1bd8-42ab-8a88-e414e7172cd1"
+                }
+              ],
+              "id": "7436905d-e6d8-4e83-8fd2-6380d93b157b",
+              "createdAt": "2026-07-28T01:13:05.000Z",
+              "updatedAt": "2026-07-28T01:13:05.000Z",
+              "uid": "35240-7436905d-e6d8-4e83-8fd2-6380d93b157b"
+            },
+            {
+              "name": "List Avatars",
+              "id": "01e4adfe-e865-437c-b7b8-91479d78d63f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/avatars?limit=10&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "avatars"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of objects to return.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "List available avatars, both your own and public ones."
+              },
+              "response": [
+                {
+                  "id": "33b5586e-799a-40c6-9040-e543d8530237",
+                  "name": "Paginated List of Avatars",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/avatars?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "avatars"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"visibility\": \"private\",\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"training\"\n    },\n    {\n      \"visibility\": \"public\",\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"training\"\n    }\n  ],\n  \"next_cursor\": \"<string>\",\n  \"has_more\": true\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-33b5586e-799a-40c6-9040-e543d8530237"
+                },
+                {
+                  "id": "66d06ac1-2b41-4d7e-91e5-eca59545bb57",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/avatars?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "avatars"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-66d06ac1-2b41-4d7e-91e5-eca59545bb57"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:05.000Z",
+              "updatedAt": "2026-07-28T01:13:05.000Z",
+              "uid": "35240-01e4adfe-e865-437c-b7b8-91479d78d63f"
+            }
+          ],
+          "id": "4955b4b5-d243-4ac3-8ab7-5d9871e65905",
+          "createdAt": "2026-07-28T01:13:05.000Z",
+          "updatedAt": "2026-07-28T01:13:05.000Z",
+          "uid": "35240-4955b4b5-d243-4ac3-8ab7-5d9871e65905"
+        }
+      ],
+      "id": "8755716b-5ea2-4926-8c03-06edaebd5e5a",
+      "createdAt": "2026-07-28T01:13:05.000Z",
+      "updatedAt": "2026-07-28T01:13:05.000Z",
+      "uid": "35240-8755716b-5ea2-4926-8c03-06edaebd5e5a"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bey.dev"
+    }
+  ]
+}

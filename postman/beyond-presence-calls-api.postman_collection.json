@@ -1,0 +1,730 @@
+{
+  "info": {
+    "_postman_id": "b940791c-ebbc-4039-a1be-18deb1f6a937",
+    "name": "Fast Agents Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:05.000Z",
+    "updatedAt": "2026-07-28T01:13:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b940791c-ebbc-4039-a1be-18deb1f6a937"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "calls",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "List Call Messages",
+                      "id": "b7879114-0474-45da-9caf-8b8e349c831f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/calls/:id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "calls",
+                            ":id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8b1717f4-8d05-4b19-bb21-133b3d00379c",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Call ID."
+                            }
+                          ]
+                        },
+                        "description": "List transcribed messages of a call."
+                      },
+                      "response": [
+                        {
+                          "id": "3abf96b7-0902-49ea-a37d-9680734ea7df",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/calls/:id/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "calls",
+                                ":id",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"message\": \"<string>\",\n    \"sent_at\": \"<string>\",\n    \"sender\": \"ai\"\n  },\n  {\n    \"message\": \"<string>\",\n    \"sent_at\": \"<string>\",\n    \"sender\": \"user\"\n  }\n]",
+                          "createdAt": "2026-07-28T01:13:05.000Z",
+                          "updatedAt": "2026-07-28T01:13:05.000Z",
+                          "uid": "35240-3abf96b7-0902-49ea-a37d-9680734ea7df"
+                        },
+                        {
+                          "id": "16cefc43-58de-425f-af1c-4c6ee781f312",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/calls/:id/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "calls",
+                                ":id",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:13:05.000Z",
+                          "updatedAt": "2026-07-28T01:13:05.000Z",
+                          "uid": "35240-16cefc43-58de-425f-af1c-4c6ee781f312"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:13:05.000Z",
+                      "updatedAt": "2026-07-28T01:13:05.000Z",
+                      "uid": "35240-b7879114-0474-45da-9caf-8b8e349c831f"
+                    }
+                  ],
+                  "id": "9c727783-7cf2-4d03-9c8c-a132b7c94d39",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-9c727783-7cf2-4d03-9c8c-a132b7c94d39"
+                },
+                {
+                  "name": "Retrieve Call",
+                  "id": "d590e4e7-5d2e-44d6-af59-7160f7edbb97",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calls/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calls",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d58d22f4-d0a7-4ceb-abbb-78345de00571",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Call ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve call."
+                  },
+                  "response": [
+                    {
+                      "id": "0986b311-575b-4138-ba1e-d6fd52c7ef3b",
+                      "name": "Requested Call",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/calls/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "calls",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"status\": {\n    \"type\": \"to_start\"\n  },\n  \"user_name\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"tags\": {\n    \"occaecat_bf\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:13:05.000Z",
+                      "updatedAt": "2026-07-28T01:13:05.000Z",
+                      "uid": "35240-0986b311-575b-4138-ba1e-d6fd52c7ef3b"
+                    },
+                    {
+                      "id": "a85764d2-668c-4313-9637-0f2006a38316",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/calls/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "calls",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:05.000Z",
+                      "updatedAt": "2026-07-28T01:13:05.000Z",
+                      "uid": "35240-a85764d2-668c-4313-9637-0f2006a38316"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-d590e4e7-5d2e-44d6-af59-7160f7edbb97"
+                }
+              ],
+              "id": "c5ebd3ea-9ffb-4e43-9b00-d013ed8a34be",
+              "createdAt": "2026-07-28T01:13:05.000Z",
+              "updatedAt": "2026-07-28T01:13:05.000Z",
+              "uid": "35240-c5ebd3ea-9ffb-4e43-9b00-d013ed8a34be"
+            },
+            {
+              "name": "Create Call",
+              "id": "bb3d9720-f58d-4786-a326-44c14e2936e0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"tags\": {\n    \"ipsum_6\": \"<string>\",\n    \"tempor_3\": \"<string>\",\n    \"et_a1\": \"<string>\",\n    \"sed8b\": \"<string>\",\n    \"quisda\": \"<string>\",\n    \"in_d1\": \"<string>\",\n    \"minimd7_\": \"<string>\",\n    \"ut_48a\": \"<string>\",\n    \"magna_ad\": \"<string>\",\n    \"ut61\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/calls",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "calls"
+                  ]
+                },
+                "description": "Create call."
+              },
+              "response": [
+                {
+                  "id": "b675e20a-d1b2-4d9e-9a95-388909d5ecd3",
+                  "name": "Created Call with ID and LiveKit connection details.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agent_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"tags\": {\n    \"ipsum_6\": \"<string>\",\n    \"tempor_3\": \"<string>\",\n    \"et_a1\": \"<string>\",\n    \"sed8b\": \"<string>\",\n    \"quisda\": \"<string>\",\n    \"in_d1\": \"<string>\",\n    \"minimd7_\": \"<string>\",\n    \"ut_48a\": \"<string>\",\n    \"magna_ad\": \"<string>\",\n    \"ut61\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calls"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"agent_id\": \"<string>\",\n  \"status\": {\n    \"type\": \"to_start\"\n  },\n  \"livekit_url\": \"<string>\",\n  \"livekit_token\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"tags\": {\n    \"do3c\": \"<string>\",\n    \"fugiat8\": \"<string>\",\n    \"adipisicingb\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-b675e20a-d1b2-4d9e-9a95-388909d5ecd3"
+                },
+                {
+                  "id": "3932c2e3-e55d-4499-803e-7e4c74d4f161",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agent_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"tags\": {\n    \"ipsum_6\": \"<string>\",\n    \"tempor_3\": \"<string>\",\n    \"et_a1\": \"<string>\",\n    \"sed8b\": \"<string>\",\n    \"quisda\": \"<string>\",\n    \"in_d1\": \"<string>\",\n    \"minimd7_\": \"<string>\",\n    \"ut_48a\": \"<string>\",\n    \"magna_ad\": \"<string>\",\n    \"ut61\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calls"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-3932c2e3-e55d-4499-803e-7e4c74d4f161"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:05.000Z",
+              "updatedAt": "2026-07-28T01:13:05.000Z",
+              "uid": "35240-bb3d9720-f58d-4786-a326-44c14e2936e0"
+            },
+            {
+              "name": "List Calls",
+              "id": "72b87d1a-573c-401d-abbb-14d1aaa7d82d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/calls?limit=10&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "calls"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of objects to return.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "List calls managed by your agents."
+              },
+              "response": [
+                {
+                  "id": "c690b407-d4b5-4f2e-afcf-d757f98cf125",
+                  "name": "Paginated List of Calls",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calls?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calls"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"status\": {\n        \"type\": \"to_start\"\n      },\n      \"user_name\": \"<string>\",\n      \"user_email\": \"<string>\",\n      \"tags\": {\n        \"reprehenderitaa2\": \"<string>\",\n        \"irured\": \"<string>\",\n        \"esse_4\": \"<string>\",\n        \"cillum6\": \"<string>\",\n        \"Lorem_d\": \"<string>\",\n        \"ad7c5\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"status\": {\n        \"type\": \"to_start\"\n      },\n      \"user_name\": \"<string>\",\n      \"user_email\": \"<string>\",\n      \"tags\": {\n        \"aliqua_0\": \"<string>\",\n        \"sed__86\": \"<string>\",\n        \"elit4\": \"<string>\"\n      }\n    }\n  ],\n  \"next_cursor\": \"<string>\",\n  \"has_more\": true\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-c690b407-d4b5-4f2e-afcf-d757f98cf125"
+                },
+                {
+                  "id": "8256669e-ed75-46be-837e-1c2d32f3b485",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calls?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calls"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:05.000Z",
+                  "updatedAt": "2026-07-28T01:13:05.000Z",
+                  "uid": "35240-8256669e-ed75-46be-837e-1c2d32f3b485"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:05.000Z",
+              "updatedAt": "2026-07-28T01:13:05.000Z",
+              "uid": "35240-72b87d1a-573c-401d-abbb-14d1aaa7d82d"
+            }
+          ],
+          "id": "16b1c86f-87ea-4fcd-9d9f-ef9fa1f2fe1c",
+          "createdAt": "2026-07-28T01:13:05.000Z",
+          "updatedAt": "2026-07-28T01:13:05.000Z",
+          "uid": "35240-16b1c86f-87ea-4fcd-9d9f-ef9fa1f2fe1c"
+        }
+      ],
+      "id": "6bbe0d9c-0bdf-4993-acf3-3943f61d1192",
+      "createdAt": "2026-07-28T01:13:05.000Z",
+      "updatedAt": "2026-07-28T01:13:05.000Z",
+      "uid": "35240-6bbe0d9c-0bdf-4993-acf3-3943f61d1192"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bey.dev"
+    }
+  ]
+}

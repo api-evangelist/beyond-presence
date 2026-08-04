@@ -164,6 +164,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/beyond-presence/overview
 - type: AgentCard
   url: a2a/beyond-presence-a2a.yml
   name: A2A Agent Card

@@ -1,0 +1,559 @@
+{
+  "info": {
+    "_postman_id": "3645ec37-401c-435a-8c47-c5593a3aed30",
+    "name": "Fast Agents Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:13.000Z",
+    "updatedAt": "2026-07-28T01:13:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3645ec37-401c-435a-8c47-c5593a3aed30"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "sessions",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieve LiveKit Audio-to-Video Sessions",
+                  "id": "49b8ff56-4a19-4ac6-8302-246a4dcfa47e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sessions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sessions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "577f31b5-056b-4c9d-8ad8-82c44f9c020e",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) LiveKit speech-to-video session ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve LiveKit speech-to-video session."
+                  },
+                  "response": [
+                    {
+                      "id": "603b75e5-3036-4f7e-bcd2-d63830e83557",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/sessions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "sessions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"status\": {\n    \"type\": \"to_start\"\n  },\n  \"url\": \"<string>\",\n  \"transport\": \"livekit\"\n}",
+                      "createdAt": "2026-07-28T01:13:13.000Z",
+                      "updatedAt": "2026-07-28T01:13:13.000Z",
+                      "uid": "35240-603b75e5-3036-4f7e-bcd2-d63830e83557"
+                    },
+                    {
+                      "id": "96ffe4a6-0334-4e7e-b624-26ce6d74e74e",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/sessions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "sessions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:13.000Z",
+                      "updatedAt": "2026-07-28T01:13:13.000Z",
+                      "uid": "35240-96ffe4a6-0334-4e7e-b624-26ce6d74e74e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:13.000Z",
+                  "updatedAt": "2026-07-28T01:13:13.000Z",
+                  "uid": "35240-49b8ff56-4a19-4ac6-8302-246a4dcfa47e"
+                }
+              ],
+              "id": "572299f3-db11-4849-bb78-649629bb3121",
+              "createdAt": "2026-07-28T01:13:13.000Z",
+              "updatedAt": "2026-07-28T01:13:13.000Z",
+              "uid": "35240-572299f3-db11-4849-bb78-649629bb3121"
+            },
+            {
+              "name": "Create LiveKit Audio-to-Video Session",
+              "id": "8a557c0f-bdf5-4ed0-914c-c7730462b46f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"avatar_id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"token\": \"<string>\",\n  \"transport\": \"livekit\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "sessions"
+                  ]
+                },
+                "description": "Create LiveKit speech-to-video session.\n\nTip: do not to use this directly, use the LiveKit plugin instead.\nSee <https://docs.livekit.io/agents/integrations/avatar/bey>."
+              },
+              "response": [
+                {
+                  "id": "d654a802-f85f-4b3d-bad0-24efa47b83d2",
+                  "name": "Created LiveKit Audio-to-Video Session with ID",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"avatar_id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"token\": \"<string>\",\n  \"transport\": \"livekit\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sessions"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"status\": {\n    \"type\": \"to_start\"\n  },\n  \"url\": \"<string>\",\n  \"transport\": \"livekit\"\n}",
+                  "createdAt": "2026-07-28T01:13:13.000Z",
+                  "updatedAt": "2026-07-28T01:13:13.000Z",
+                  "uid": "35240-d654a802-f85f-4b3d-bad0-24efa47b83d2"
+                },
+                {
+                  "id": "bf5a41b9-3d3c-4891-b14c-d52dcc3697e6",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"avatar_id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"token\": \"<string>\",\n  \"transport\": \"livekit\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sessions"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:13.000Z",
+                  "updatedAt": "2026-07-28T01:13:13.000Z",
+                  "uid": "35240-bf5a41b9-3d3c-4891-b14c-d52dcc3697e6"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:13.000Z",
+              "updatedAt": "2026-07-28T01:13:13.000Z",
+              "uid": "35240-8a557c0f-bdf5-4ed0-914c-c7730462b46f"
+            },
+            {
+              "name": "List LiveKit Audio-to-Video Sessions",
+              "id": "f9e1ee3c-4fc2-438b-a5d8-f611e51f2657",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/sessions?limit=10&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "sessions"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of objects to return.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "List LiveKit speech-to-video sessions."
+              },
+              "response": [
+                {
+                  "id": "67182044-a9fd-4b7d-aed3-2f1c7c257d0f",
+                  "name": "Paginated List of LiveKit Audio-to-Video Sessions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sessions?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sessions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"avatar_id\": \"<string>\",\n      \"status\": {\n        \"type\": \"to_start\"\n      },\n      \"url\": \"<string>\",\n      \"transport\": \"livekit\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"avatar_id\": \"<string>\",\n      \"status\": {\n        \"type\": \"to_start\"\n      },\n      \"url\": \"<string>\",\n      \"transport\": \"livekit\"\n    }\n  ],\n  \"next_cursor\": \"<string>\",\n  \"has_more\": true\n}",
+                  "createdAt": "2026-07-28T01:13:13.000Z",
+                  "updatedAt": "2026-07-28T01:13:13.000Z",
+                  "uid": "35240-67182044-a9fd-4b7d-aed3-2f1c7c257d0f"
+                },
+                {
+                  "id": "8f3ace4b-6ac1-4fb2-809a-7aae8f4a07fe",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/sessions?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "sessions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:13.000Z",
+                  "updatedAt": "2026-07-28T01:13:13.000Z",
+                  "uid": "35240-8f3ace4b-6ac1-4fb2-809a-7aae8f4a07fe"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:13.000Z",
+              "updatedAt": "2026-07-28T01:13:13.000Z",
+              "uid": "35240-f9e1ee3c-4fc2-438b-a5d8-f611e51f2657"
+            }
+          ],
+          "id": "55449e34-4290-4485-8884-2eee2e594d6a",
+          "createdAt": "2026-07-28T01:13:13.000Z",
+          "updatedAt": "2026-07-28T01:13:13.000Z",
+          "uid": "35240-55449e34-4290-4485-8884-2eee2e594d6a"
+        }
+      ],
+      "id": "17007ef0-8487-4e02-8681-788c56e00410",
+      "createdAt": "2026-07-28T01:13:13.000Z",
+      "updatedAt": "2026-07-28T01:13:13.000Z",
+      "uid": "35240-17007ef0-8487-4e02-8681-788c56e00410"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bey.dev"
+    }
+  ]
+}

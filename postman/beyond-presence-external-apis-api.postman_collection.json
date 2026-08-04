@@ -1,0 +1,709 @@
+{
+  "info": {
+    "_postman_id": "41f75eda-0ef1-435b-83f2-6f7ef32976c2",
+    "name": "Fast Agents External APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:06.000Z",
+    "updatedAt": "2026-07-28T01:13:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-41f75eda-0ef1-435b-83f2-6f7ef32976c2"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "external-apis",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieve External API Configuration",
+                  "id": "0b369afb-fcc3-4996-812f-9d6df92f776b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7dd117f0-1128-4a28-985b-bbe79ef180a8",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) External API configuration ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve external API configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "1f003721-0031-4354-8469-ab219bd91409",
+                      "name": "Requested External API Configuration",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/external-apis/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "external-apis",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"type\": \"openai_compatible_llm\"\n}",
+                      "createdAt": "2026-07-28T01:13:07.000Z",
+                      "updatedAt": "2026-07-28T01:13:07.000Z",
+                      "uid": "35240-1f003721-0031-4354-8469-ab219bd91409"
+                    },
+                    {
+                      "id": "87294cab-7a94-4ca7-be99-22946e94ed6a",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/external-apis/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "external-apis",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:07.000Z",
+                      "updatedAt": "2026-07-28T01:13:07.000Z",
+                      "uid": "35240-87294cab-7a94-4ca7-be99-22946e94ed6a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-0b369afb-fcc3-4996-812f-9d6df92f776b"
+                },
+                {
+                  "name": "Delete External API Configuration",
+                  "id": "0d506d5f-475b-45c1-bc6f-d163c9323ae6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "294cc78b-e2bf-4b3d-90c3-a2adaa2197e1",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) External API configuration ID."
+                        }
+                      ]
+                    },
+                    "description": "Delete external API configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "697c66f3-bb1d-47fb-9f68-4fdc370493bf",
+                      "name": "Successful Deletion",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/external-apis/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "external-apis",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:13:07.000Z",
+                      "updatedAt": "2026-07-28T01:13:07.000Z",
+                      "uid": "35240-697c66f3-bb1d-47fb-9f68-4fdc370493bf"
+                    },
+                    {
+                      "id": "bf8f2974-deca-43b9-b4fc-c087da945a5f",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/external-apis/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "external-apis",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:07.000Z",
+                      "updatedAt": "2026-07-28T01:13:07.000Z",
+                      "uid": "35240-bf8f2974-deca-43b9-b4fc-c087da945a5f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-0d506d5f-475b-45c1-bc6f-d163c9323ae6"
+                }
+              ],
+              "id": "2611b76d-37bb-456f-b1b9-d2f36cd16690",
+              "createdAt": "2026-07-28T01:13:07.000Z",
+              "updatedAt": "2026-07-28T01:13:07.000Z",
+              "uid": "35240-2611b76d-37bb-456f-b1b9-d2f36cd16690"
+            },
+            {
+              "name": "Create External API Configuration",
+              "id": "336eb7e1-aae3-4e68-86fa-c7dec2494b4c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"type\": \"openai_compatible_llm\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/external-apis",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "external-apis"
+                  ]
+                },
+                "description": "Create external API configuration."
+              },
+              "response": [
+                {
+                  "id": "02aacd13-2b96-479c-8fc1-dd2e1079c9e5",
+                  "name": "Created External API Configuration with ID",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"type\": \"openai_compatible_llm\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"type\": \"openai_compatible_llm\"\n}",
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-02aacd13-2b96-479c-8fc1-dd2e1079c9e5"
+                },
+                {
+                  "id": "c8094efb-a119-4cab-85be-447ba2c09d33",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"type\": \"openai_compatible_llm\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-c8094efb-a119-4cab-85be-447ba2c09d33"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:07.000Z",
+              "updatedAt": "2026-07-28T01:13:07.000Z",
+              "uid": "35240-336eb7e1-aae3-4e68-86fa-c7dec2494b4c"
+            },
+            {
+              "name": "List External API Configurations",
+              "id": "63477ec5-c070-4330-8a03-3655b602d836",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/external-apis?limit=10&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "external-apis"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of objects to return.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "List external API configurations."
+              },
+              "response": [
+                {
+                  "id": "7806f327-fdfb-4b22-b97d-9cafc8a73f2c",
+                  "name": "Paginated List of External API Configurations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"type\": \"openai_compatible_llm\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"url\": \"<string>\",\n      \"type\": \"openai_compatible_llm\"\n    }\n  ],\n  \"next_cursor\": \"<string>\",\n  \"has_more\": true\n}",
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-7806f327-fdfb-4b22-b97d-9cafc8a73f2c"
+                },
+                {
+                  "id": "f51e3cc7-85ce-45d4-aae8-14ada34c4881",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/external-apis?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "external-apis"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:07.000Z",
+                  "updatedAt": "2026-07-28T01:13:07.000Z",
+                  "uid": "35240-f51e3cc7-85ce-45d4-aae8-14ada34c4881"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:07.000Z",
+              "updatedAt": "2026-07-28T01:13:07.000Z",
+              "uid": "35240-63477ec5-c070-4330-8a03-3655b602d836"
+            }
+          ],
+          "id": "408110eb-b0ac-431c-b843-dd28316ff480",
+          "createdAt": "2026-07-28T01:13:07.000Z",
+          "updatedAt": "2026-07-28T01:13:07.000Z",
+          "uid": "35240-408110eb-b0ac-431c-b843-dd28316ff480"
+        }
+      ],
+      "id": "316f87a7-6404-4e61-b530-1e7ee76f4d98",
+      "createdAt": "2026-07-28T01:13:07.000Z",
+      "updatedAt": "2026-07-28T01:13:07.000Z",
+      "uid": "35240-316f87a7-6404-4e61-b530-1e7ee76f4d98"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bey.dev"
+    }
+  ]
+}

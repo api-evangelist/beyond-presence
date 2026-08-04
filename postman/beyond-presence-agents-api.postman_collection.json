@@ -1,0 +1,901 @@
+{
+  "info": {
+    "_postman_id": "84340311-7459-41b1-8159-1ce97f856091",
+    "name": "Fast Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:02.000Z",
+    "updatedAt": "2026-07-28T01:13:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-84340311-7459-41b1-8159-1ce97f856091"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "agents",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Update Agent",
+                  "id": "b9973fd2-22c4-4e22-b596-84d4bdbdc330",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"fi\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"medium\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6a027067-ce3b-4a9d-b43c-3fb2ae766ed5",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Agent ID."
+                        }
+                      ]
+                    },
+                    "description": "Update agent."
+                  },
+                  "response": [
+                    {
+                      "id": "795bbbda-f75e-40d7-a8ce-d91982d65075",
+                      "name": "Successful Update",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"fi\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"medium\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-795bbbda-f75e-40d7-a8ce-d91982d65075"
+                    },
+                    {
+                      "id": "b85fd58f-74d5-43cc-a33c-61ac52d72e5b",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"fi\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"medium\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-b85fd58f-74d5-43cc-a33c-61ac52d72e5b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:02.000Z",
+                  "updatedAt": "2026-07-28T01:13:02.000Z",
+                  "uid": "35240-b9973fd2-22c4-4e22-b596-84d4bdbdc330"
+                },
+                {
+                  "name": "Retrieve Agent",
+                  "id": "f56e3ded-8815-4a46-96b9-0e6e23781b94",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a7405afd-01a6-497f-ba88-df6f44e43978",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Agent ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve agent."
+                  },
+                  "response": [
+                    {
+                      "id": "71bab532-0b21-47ca-9082-1762d2ae6154",
+                      "name": "Requested Agent",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"hi\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"low\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-71bab532-0b21-47ca-9082-1762d2ae6154"
+                    },
+                    {
+                      "id": "615c76b3-01b7-45f2-815b-4bd846e4c92f",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-615c76b3-01b7-45f2-815b-4bd846e4c92f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:02.000Z",
+                  "updatedAt": "2026-07-28T01:13:02.000Z",
+                  "uid": "35240-f56e3ded-8815-4a46-96b9-0e6e23781b94"
+                },
+                {
+                  "name": "Delete Agent",
+                  "id": "8c04149f-9ea5-4581-95a6-214bd3606101",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "79937f3d-8094-4d4e-9a61-74ccb94e696b",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Agent ID."
+                        }
+                      ]
+                    },
+                    "description": "Delete agent."
+                  },
+                  "response": [
+                    {
+                      "id": "4fa144b1-ef8d-4eeb-acd4-22e8b4e2811e",
+                      "name": "Successful Deletion",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-4fa144b1-ef8d-4eeb-acd4-22e8b4e2811e"
+                    },
+                    {
+                      "id": "ab7cf320-4bb6-43b5-844c-45d0a32a7273",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/agents/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "agents",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:03.000Z",
+                      "updatedAt": "2026-07-28T01:13:03.000Z",
+                      "uid": "35240-ab7cf320-4bb6-43b5-844c-45d0a32a7273"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:02.000Z",
+                  "updatedAt": "2026-07-28T01:13:02.000Z",
+                  "uid": "35240-8c04149f-9ea5-4581-95a6-214bd3606101"
+                }
+              ],
+              "id": "3990d408-8fa7-4c9a-8093-16dfc19125fc",
+              "createdAt": "2026-07-28T01:13:02.000Z",
+              "updatedAt": "2026-07-28T01:13:02.000Z",
+              "uid": "35240-3990d408-8fa7-4c9a-8093-16dfc19125fc"
+            },
+            {
+              "name": "Create Agent",
+              "id": "669f4c54-f136-46fd-bd21-9db055722c6b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"de\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"xhigh\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "agents"
+                  ]
+                },
+                "description": "Create agent."
+              },
+              "response": [
+                {
+                  "id": "1c9d1d3d-a011-4a25-914b-0b2ea1d838df",
+                  "name": "Created Agent with ID",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"de\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"xhigh\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"hi\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"low\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:03.000Z",
+                  "updatedAt": "2026-07-28T01:13:03.000Z",
+                  "uid": "35240-1c9d1d3d-a011-4a25-914b-0b2ea1d838df"
+                },
+                {
+                  "id": "9f669622-4b57-41fe-8383-f06dfa862181",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"avatar_id\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"language\": \"de\",\n  \"greeting\": \"<string>\",\n  \"max_session_length_minutes\": \"<integer>\",\n  \"capabilities\": [\n    {\n      \"type\": \"webcam_vision\"\n    },\n    {\n      \"type\": \"webcam_vision\"\n    }\n  ],\n  \"llm\": {\n    \"model\": \"<string>\",\n    \"type\": \"livekit\",\n    \"reasoning_effort\": \"xhigh\"\n  },\n  \"tts\": {\n    \"model\": \"<string>\",\n    \"voice\": \"<string>\",\n    \"type\": \"livekit\"\n  },\n  \"knowledge_file_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:03.000Z",
+                  "updatedAt": "2026-07-28T01:13:03.000Z",
+                  "uid": "35240-9f669622-4b57-41fe-8383-f06dfa862181"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:02.000Z",
+              "updatedAt": "2026-07-28T01:13:02.000Z",
+              "uid": "35240-669f4c54-f136-46fd-bd21-9db055722c6b"
+            },
+            {
+              "name": "List Agents",
+              "id": "345cddb3-0b26-42e3-9812-a620c4a3cda6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/agents?limit=10&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of objects to return.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for pagination.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "List agents."
+              },
+              "response": [
+                {
+                  "id": "56466b21-ac37-407b-a307-b1d4bf1808ab",
+                  "name": "Paginated List of Agents",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"avatar_id\": \"<string>\",\n      \"system_prompt\": \"<string>\",\n      \"language\": \"ur\",\n      \"greeting\": \"<string>\",\n      \"max_session_length_minutes\": \"<integer>\",\n      \"capabilities\": [\n        {\n          \"type\": \"webcam_vision\"\n        },\n        {\n          \"type\": \"webcam_vision\"\n        }\n      ],\n      \"llm\": {\n        \"model\": \"<string>\",\n        \"type\": \"livekit\",\n        \"reasoning_effort\": \"high\"\n      },\n      \"tts\": {\n        \"model\": \"<string>\",\n        \"voice\": \"<string>\",\n        \"type\": \"livekit\"\n      },\n      \"knowledge_file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"avatar_id\": \"<string>\",\n      \"system_prompt\": \"<string>\",\n      \"language\": \"no\",\n      \"greeting\": \"<string>\",\n      \"max_session_length_minutes\": \"<integer>\",\n      \"capabilities\": [\n        {\n          \"type\": \"webcam_vision\"\n        },\n        {\n          \"type\": \"webcam_vision\"\n        }\n      ],\n      \"llm\": {\n        \"model\": \"<string>\",\n        \"type\": \"livekit\",\n        \"reasoning_effort\": \"low\"\n      },\n      \"tts\": {\n        \"model\": \"<string>\",\n        \"voice\": \"<string>\",\n        \"type\": \"livekit\"\n      },\n      \"knowledge_file_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"next_cursor\": \"<string>\",\n  \"has_more\": true\n}",
+                  "createdAt": "2026-07-28T01:13:03.000Z",
+                  "updatedAt": "2026-07-28T01:13:03.000Z",
+                  "uid": "35240-56466b21-ac37-407b-a307-b1d4bf1808ab"
+                },
+                {
+                  "id": "80b30535-3f7d-4845-aec9-fd54c1a52997",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/agents?limit=10&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "agents"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of objects to return.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for pagination.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:13:03.000Z",
+                  "updatedAt": "2026-07-28T01:13:03.000Z",
+                  "uid": "35240-80b30535-3f7d-4845-aec9-fd54c1a52997"
+                }
+              ],
+              "createdAt": "2026-07-28T01:13:02.000Z",
+              "updatedAt": "2026-07-28T01:13:02.000Z",
+              "uid": "35240-345cddb3-0b26-42e3-9812-a620c4a3cda6"
+            }
+          ],
+          "id": "2290f593-9e7e-4f58-8fb8-805c73898e19",
+          "createdAt": "2026-07-28T01:13:02.000Z",
+          "updatedAt": "2026-07-28T01:13:02.000Z",
+          "uid": "35240-2290f593-9e7e-4f58-8fb8-805c73898e19"
+        }
+      ],
+      "id": "b0218862-1a77-4c84-957c-916f5b0ed2c8",
+      "createdAt": "2026-07-28T01:13:02.000Z",
+      "updatedAt": "2026-07-28T01:13:02.000Z",
+      "uid": "35240-b0218862-1a77-4c84-957c-916f5b0ed2c8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bey.dev"
+    }
+  ]
+}
