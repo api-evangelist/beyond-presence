@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Agents Sessions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LiveKit Audio-to-Video Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bey.dev/v1/sessions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List LiveKit speech-to-video sessions."
+        },
+        {
+          "info": {
+            "name": "Create LiveKit Audio-to-Video Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bey.dev/v1/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create LiveKit speech-to-video session.\n\nTip: do not to use this directly, use the LiveKit plugin instead.\nSee <https://docs.livekit.io/agents/integrations/avatar/bey>."
+        },
+        {
+          "info": {
+            "name": "Retrieve LiveKit Audio-to-Video Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bey.dev/v1/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "LiveKit speech-to-video session ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve LiveKit speech-to-video session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

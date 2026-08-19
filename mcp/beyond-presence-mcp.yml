@@ -2,11 +2,9 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/beyond-presence-openapi-original.json
-note: >-
-  No official hosted/remote MCP server was found for Beyond Presence as of this
-  pass (checked docs.bey.dev, the bey-dev GitHub org, and MCP registries). The
-  tool list below is a CANDIDATE derived one-to-one from the published OpenAPI
-  operations to seed a future MCP server. Not an official Beyond Presence claim.
+note: No official hosted/remote MCP server was found for Beyond Presence as of this pass (checked docs.bey.dev,
+  the bey-dev GitHub org, and MCP registries). The tool list below is a CANDIDATE derived one-to-one from
+  the published OpenAPI operations to seed a future MCP server. Not an official Beyond Presence claim.
 server:
   name: beyond-presence
   transport: http
@@ -62,3 +60,9 @@ tools:
 - name: submit_knowledge_file
   description: Submit and finalize a chunked knowledge file upload.
   source_operation: openapi/beyond-presence-openapi-original.json#submit_knowledge_file_v1_knowledge_files__id__submit_post
+deployment:
+  mode: none
+  verified: derived
+  tools: 17
+  checked: '2026-08-12'
+  source: catalog MCP census

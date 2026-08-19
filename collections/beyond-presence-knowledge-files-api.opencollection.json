@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Agents Knowledge Files API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Knowledge Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Knowledge Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bey.dev/v1/knowledge-files",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of objects to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List available knowledge files."
+        },
+        {
+          "info": {
+            "name": "Create Knowledge File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bey.dev/v1/knowledge-files",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new knowledge file and initialize chunked upload."
+        },
+        {
+          "info": {
+            "name": "Retrieve Knowledge File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bey.dev/v1/knowledge-files/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Knowledge File ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve knowledge file by ID."
+        },
+        {
+          "info": {
+            "name": "Delete Knowledge File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bey.dev/v1/knowledge-files/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Knowledge File ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a knowledge file."
+        },
+        {
+          "info": {
+            "name": "Upload Knowledge File Chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bey.dev/v1/knowledge-files/:id/upload",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Knowledge File ID."
+              },
+              {
+                "name": "chunk_number",
+                "value": "",
+                "type": "query",
+                "description": "Chunk number, starting from 0."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload a single chunk of a knowledge file."
+        },
+        {
+          "info": {
+            "name": "Submit Knowledge File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bey.dev/v1/knowledge-files/:id/submit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Knowledge File ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit and finalize a chunked knowledge file upload."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
