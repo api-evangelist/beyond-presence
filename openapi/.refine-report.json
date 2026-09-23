@@ -1,13 +1,7 @@
 {
   "provider": "beyond-presence",
   "sources": [
-    "beyond-presence-agents-api-openapi.yml",
-    "beyond-presence-authentication-api-openapi.yml",
-    "beyond-presence-avatars-api-openapi.yml",
-    "beyond-presence-calls-api-openapi.yml",
-    "beyond-presence-external-apis-api-openapi.yml",
-    "beyond-presence-knowledge-files-api-openapi.yml",
-    "beyond-presence-sessions-api-openapi.yml"
+    "_original/beyond-presence-openapi-original.json"
   ],
   "outputs": [
     "beyond-presence-agents-api-openapi.yml",
@@ -21,6 +15,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "beyond-presence-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "beyond-presence-openapi-original.json: declared missing tag: Agents",
+    "beyond-presence-openapi-original.json: declared missing tag: Authentication",
+    "beyond-presence-openapi-original.json: declared missing tag: Avatars",
+    "beyond-presence-openapi-original.json: declared missing tag: Calls",
+    "beyond-presence-openapi-original.json: declared missing tag: External APIs",
+    "beyond-presence-openapi-original.json: declared missing tag: Knowledge Files",
+    "beyond-presence-openapi-original.json: declared missing tag: Sessions",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "beyond-presence-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-avatars-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-calls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-external-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-knowledge-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beyond-presence-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

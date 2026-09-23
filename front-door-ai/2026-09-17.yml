@@ -1,0 +1,29 @@
+# Front Door AI Index — beyond-presence — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: beyond-presence
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: bey.dev
+  final_host: docs.bey.dev
+  ownership: own
+  owner: beyond-presence
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 11
+  host_score: 11
+  density: 22.59
+  words: 487
+  tiers:
+    agentic: 2
+    core: 9
+    model: 0
+  ambiguous: 11
+  top_terms:
+    agent: 11
+    AI: 8
+    AI assistant: 1
+    ML: 1
+    chatbot: 1
