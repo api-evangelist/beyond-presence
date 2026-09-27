@@ -148,14 +148,26 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CallResponse:
+    NoMorePage_CallResponse_:
       properties:
-        id:
-          type: string
-          title: Id
-          description: Unique identifier of the object in the database.
-          examples:
-          - 01234567-89ab-cdef-0123-456789abcdef
+        data:
+          items:
+            $ref: '#/components/schemas/CallResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[CallResponse]
+    CreateCallRequest:
+      properties:
         agent_id:
           type: string
           title: Agent Id
@@ -184,15 +196,71 @@ components:
           maxProperties: 10
           title: Tags
           description: Tags for the call
-        status:
-          $ref: '#/components/schemas/CallStatus'
       type: object
       required:
-      - id
       - agent_id
-      - status
-      title: CallResponse
-      description: Response model for a call.
+      title: CreateCallRequest
+      description: Request body to create a call.
+    ToStartCallStatus:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: ToStartCallStatus
+      description: Status for call that has not yet started.
+    CallStatus:
+      oneOf:
+      - $ref: '#/components/schemas/ToStartCallStatus'
+      - $ref: '#/components/schemas/OngoingCallStatus'
+      - $ref: '#/components/schemas/CompletedCallStatus'
+      discriminator:
+        propertyName: type
+        mapping:
+          completed: '#/components/schemas/CompletedCallStatus'
+          ongoing: '#/components/schemas/OngoingCallStatus'
+          to_start: '#/components/schemas/ToStartCallStatus'
+    OngoingCallStatus:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: OngoingCallStatus
+      description: Status for call that is currently ongoing.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CompletedCallStatus:
       properties:
         type:
@@ -218,47 +286,15 @@ components:
       - ended_at
       title: CompletedCallStatus
       description: Status for call that has completed.
-    NoMorePage_CallResponse_:
+    HTTPValidationError:
       properties:
-        data:
+        detail:
           items:
-            $ref: '#/components/schemas/CallResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: false
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: false
+          title: Detail
       type: object
-      required:
-      - data
-      title: NoMorePage[CallResponse]
-    HasMorePage_CallResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/CallResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: true
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: true
-        next_cursor:
-          type: string
-          title: Next Cursor
-          description: The cursor for the next page of objects.
-      type: object
-      required:
-      - data
-      - next_cursor
-      title: HasMorePage[CallResponse]
+      title: HTTPValidationError
     SecretCallResponse:
       properties:
         id:
@@ -314,91 +350,14 @@ components:
       - livekit_token
       title: SecretCallResponse
       description: Response model for a call including LiveKit connection details.
-    ValidationError:
+    CallResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CallMessage:
-      properties:
-        message:
-          type: string
-          title: Message
-          description: Text content.
-        sent_at:
-          type: string
-          title: Sent At
-          description: Sent time in ISO 8601 format.
-        sender:
-          type: string
-          enum:
-          - ai
-          - user
-          title: Sender
-          description: Sender, either 'ai' or 'user'.
-      type: object
-      required:
-      - message
-      - sent_at
-      - sender
-      title: CallMessage
-      description: Message in a call.
-    OngoingCallStatus:
-      properties:
-        type:
-          type: string
-          const: ongoing
-          title: Type
-          default: ongoing
-        started_at:
-          type: string
-          title: Started At
-          description: Start time in ISO 8601 format.
+          title: Id
+          description: Unique identifier of the object in the database.
           examples:
-          - '2022-01-01T00:00:00Z'
-      type: object
-      required:
-      - started_at
-      title: OngoingCallStatus
-      description: Status for call that is currently ongoing.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CallStatus:
-      oneOf:
-      - $ref: '#/components/schemas/ToStartCallStatus'
-      - $ref: '#/components/schemas/OngoingCallStatus'
-      - $ref: '#/components/schemas/CompletedCallStatus'
-      discriminator:
-        propertyName: type
-        mapping:
-          completed: '#/components/schemas/CompletedCallStatus'
-          ongoing: '#/components/schemas/OngoingCallStatus'
-          to_start: '#/components/schemas/ToStartCallStatus'
-    CreateCallRequest:
-      properties:
+          - 01234567-89ab-cdef-0123-456789abcdef
         agent_id:
           type: string
           title: Agent Id
@@ -427,21 +386,62 @@ components:
           maxProperties: 10
           title: Tags
           description: Tags for the call
+        status:
+          $ref: '#/components/schemas/CallStatus'
       type: object
       required:
+      - id
       - agent_id
-      title: CreateCallRequest
-      description: Request body to create a call.
-    ToStartCallStatus:
+      - status
+      title: CallResponse
+      description: Response model for a call.
+    CallMessage:
       properties:
-        type:
+        message:
           type: string
-          const: to_start
-          title: Type
-          default: to_start
+          title: Message
+          description: Text content.
+        sent_at:
+          type: string
+          title: Sent At
+          description: Sent time in ISO 8601 format.
+        sender:
+          type: string
+          enum:
+          - ai
+          - user
+          title: Sender
+          description: Sender, either 'ai' or 'user'.
       type: object
-      title: ToStartCallStatus
-      description: Status for call that has not yet started.
+      required:
+      - message
+      - sent_at
+      - sender
+      title: CallMessage
+      description: Message in a call.
+    HasMorePage_CallResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CallResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[CallResponse]
   securitySchemes:
     APIKeyHeader:
       type: apiKey

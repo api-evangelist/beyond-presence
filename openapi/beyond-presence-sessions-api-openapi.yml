@@ -119,40 +119,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CreateLivekitSessionRequest:
-      properties:
-        transport:
-          type: string
-          const: livekit
-          title: Transport
-          default: livekit
-        avatar_id:
-          type: string
-          title: Avatar Id
-          description: ID of avatar to use.
-          examples:
-          - 01234567-89ab-cdef-0123-456789abcdef
-        url:
-          type: string
-          title: Url
-          description: URL of LiveKit server the avatar worker should connect to.
-          examples:
-          - wss://<your-domain>.livekit.cloud
-        token:
-          type: string
-          format: password
-          title: Token
-          description: The token used to join your LiveKit room.
-          writeOnly: true
-          examples:
-          - <your-livekit-token>
-      type: object
-      required:
-      - avatar_id
-      - url
-      - token
-      title: CreateLivekitSessionRequest
-      description: Request body to create a LiveKit speech-to-video session.
     LivekitSessionResponse:
       properties:
         id:
@@ -188,69 +154,6 @@ components:
       - url
       title: LivekitSessionResponse
       description: Response body for a LiveKit speech-to-video session.
-    SessionStatusToStart:
-      properties:
-        type:
-          type: string
-          const: to_start
-          title: Type
-          default: to_start
-      type: object
-      title: SessionStatusToStart
-      description: Session that has not yet started.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HasMorePage_SessionResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SessionResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: true
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: true
-        next_cursor:
-          type: string
-          title: Next Cursor
-          description: The cursor for the next page of objects.
-      type: object
-      required:
-      - data
-      - next_cursor
-      title: HasMorePage[SessionResponse]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     SessionStatusCompleted:
       properties:
         type:
@@ -276,51 +179,6 @@ components:
       - ended_at
       title: SessionStatusCompleted
       description: Session that has completed.
-    SessionResponse:
-      oneOf:
-      - $ref: '#/components/schemas/LivekitSessionResponse'
-      - $ref: '#/components/schemas/PipecatSessionResponse'
-      discriminator:
-        propertyName: transport
-        mapping:
-          livekit: '#/components/schemas/LivekitSessionResponse'
-          pipecat: '#/components/schemas/PipecatSessionResponse'
-    SessionStatusOngoing:
-      properties:
-        type:
-          type: string
-          const: ongoing
-          title: Type
-          default: ongoing
-        started_at:
-          type: string
-          title: Started At
-          description: Start time in ISO 8601 format.
-          examples:
-          - '2022-01-01T00:00:00Z'
-      type: object
-      required:
-      - started_at
-      title: SessionStatusOngoing
-      description: Session that is currently ongoing.
-    NoMorePage_SessionResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SessionResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: false
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: false
-      type: object
-      required:
-      - data
-      title: NoMorePage[SessionResponse]
     SessionStatus:
       oneOf:
       - $ref: '#/components/schemas/SessionStatusToStart'
@@ -332,6 +190,27 @@ components:
           completed: '#/components/schemas/SessionStatusCompleted'
           ongoing: '#/components/schemas/SessionStatusOngoing'
           to_start: '#/components/schemas/SessionStatusToStart'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CreatePipecatSessionRequest:
       properties:
         transport:
@@ -366,10 +245,131 @@ components:
       - token
       title: CreatePipecatSessionRequest
       description: Request body to create a Pipecat speech-to-video session.
+    CreateLivekitSessionRequest:
+      properties:
+        transport:
+          type: string
+          const: livekit
+          title: Transport
+          default: livekit
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        url:
+          type: string
+          title: Url
+          description: URL of LiveKit server the avatar worker should connect to.
+          examples:
+          - wss://<your-domain>.livekit.cloud
+        token:
+          type: string
+          format: password
+          title: Token
+          description: The token used to join your LiveKit room.
+          writeOnly: true
+          examples:
+          - <your-livekit-token>
+      type: object
+      required:
+      - avatar_id
+      - url
+      - token
+      title: CreateLivekitSessionRequest
+      description: Request body to create a LiveKit speech-to-video session.
     CreateSessionRequest:
       anyOf:
       - $ref: '#/components/schemas/CreateLivekitSessionRequest'
       - $ref: '#/components/schemas/CreatePipecatSessionRequest'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SessionResponse:
+      oneOf:
+      - $ref: '#/components/schemas/LivekitSessionResponse'
+      - $ref: '#/components/schemas/PipecatSessionResponse'
+      discriminator:
+        propertyName: transport
+        mapping:
+          livekit: '#/components/schemas/LivekitSessionResponse'
+          pipecat: '#/components/schemas/PipecatSessionResponse'
+    SessionStatusOngoing:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: SessionStatusOngoing
+      description: Session that is currently ongoing.
+    SessionStatusToStart:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: SessionStatusToStart
+      description: Session that has not yet started.
+    HasMorePage_SessionResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SessionResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[SessionResponse]
+    NoMorePage_SessionResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SessionResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[SessionResponse]
     PipecatSessionResponse:
       properties:
         id:

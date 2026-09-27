@@ -58,6 +58,7 @@ tags:
 - Agents
 - Speech To Video
 - Real-Time Communication
+- A2A
 tags_raw:
 - Company
 - Ai Enterprise Software
@@ -68,6 +69,7 @@ tags_raw:
 - Agents
 - Speech To Video
 - Real Time Communication
+- A2A
 apis:
 - aid: beyond-presence:beyond-presence-agents-api
   name: Beyond Presence Agents API
@@ -266,3 +268,10 @@ x-enrichment:
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.bey.dev/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

@@ -141,68 +141,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    NoMorePage_ExternalApiResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ExternalApiResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: false
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: false
-      type: object
-      required:
-      - data
-      title: NoMorePage[ExternalApiResponse]
-    HasMorePage_ExternalApiResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ExternalApiResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: true
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: true
-        next_cursor:
-          type: string
-          title: Next Cursor
-          description: The cursor for the next page of objects.
-      type: object
-      required:
-      - data
-      - next_cursor
-      title: HasMorePage[ExternalApiResponse]
     CreateOpenaiCompatibleLlmExternalApiRequest:
       properties:
         type:
@@ -228,6 +166,57 @@ components:
       - api_key
       title: CreateOpenaiCompatibleLlmExternalApiRequest
       description: Request body to create an OpenAI-compatible LLM API configuration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateExternalApiRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+    HasMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[ExternalApiResponse]
     HTTPValidationError:
       properties:
         detail:
@@ -244,13 +233,6 @@ components:
         propertyName: type
         mapping:
           openai_compatible_llm: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
-    CreateExternalApiRequest:
-      oneOf:
-      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
-      discriminator:
-        propertyName: type
-        mapping:
-          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
     OpenaiCompatibleLlmExternalApiResponse:
       properties:
         id:
@@ -277,6 +259,24 @@ components:
       - url
       title: OpenaiCompatibleLlmExternalApiResponse
       description: Response body for an OpenAI-compatible LLM API configuration.
+    NoMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[ExternalApiResponse]
   securitySchemes:
     APIKeyHeader:
       type: apiKey
