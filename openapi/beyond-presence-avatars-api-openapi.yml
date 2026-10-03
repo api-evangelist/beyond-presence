@@ -87,43 +87,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Visibility:
+    AvatarStatus:
       type: string
       enum:
-      - public
-      - private
-      title: Visibility
-      description: Visibility of the resource.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - to-train
+      - training
+      - available
+      - failed
+      title: AvatarStatus
+      description: Status of an avatar.
     HasMorePage_AvatarResponse_:
       properties:
         data:
@@ -165,15 +137,43 @@ components:
       required:
       - data
       title: NoMorePage[AvatarResponse]
-    AvatarStatus:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Visibility:
       type: string
       enum:
-      - to-train
-      - training
-      - available
-      - failed
-      title: AvatarStatus
-      description: Status of an avatar.
+      - public
+      - private
+      title: Visibility
+      description: Visibility of the resource.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AvatarResponse:
       properties:
         visibility:
