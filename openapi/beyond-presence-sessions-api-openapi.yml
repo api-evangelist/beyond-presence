@@ -119,6 +119,51 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    SessionStatus:
+      oneOf:
+      - $ref: '#/components/schemas/SessionStatusToStart'
+      - $ref: '#/components/schemas/SessionStatusOngoing'
+      - $ref: '#/components/schemas/SessionStatusCompleted'
+      discriminator:
+        propertyName: type
+        mapping:
+          completed: '#/components/schemas/SessionStatusCompleted'
+          ongoing: '#/components/schemas/SessionStatusOngoing'
+          to_start: '#/components/schemas/SessionStatusToStart'
+    SessionResponse:
+      oneOf:
+      - $ref: '#/components/schemas/LivekitSessionResponse'
+      - $ref: '#/components/schemas/PipecatSessionResponse'
+      discriminator:
+        propertyName: transport
+        mapping:
+          livekit: '#/components/schemas/LivekitSessionResponse'
+          pipecat: '#/components/schemas/PipecatSessionResponse'
+    SessionStatusCompleted:
+      properties:
+        type:
+          type: string
+          const: completed
+          title: Type
+          default: completed
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+        ended_at:
+          type: string
+          title: Ended At
+          description: End time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      - ended_at
+      title: SessionStatusCompleted
+      description: Session that has completed.
     CreateLivekitSessionRequest:
       properties:
         transport:
@@ -153,49 +198,6 @@ components:
       - token
       title: CreateLivekitSessionRequest
       description: Request body to create a LiveKit speech-to-video session.
-    SessionStatusCompleted:
-      properties:
-        type:
-          type: string
-          const: completed
-          title: Type
-          default: completed
-        started_at:
-          type: string
-          title: Started At
-          description: Start time in ISO 8601 format.
-          examples:
-          - '2022-01-01T00:00:00Z'
-        ended_at:
-          type: string
-          title: Ended At
-          description: End time in ISO 8601 format.
-          examples:
-          - '2022-01-01T00:00:00Z'
-      type: object
-      required:
-      - started_at
-      - ended_at
-      title: SessionStatusCompleted
-      description: Session that has completed.
-    SessionStatusOngoing:
-      properties:
-        type:
-          type: string
-          const: ongoing
-          title: Type
-          default: ongoing
-        started_at:
-          type: string
-          title: Started At
-          description: Start time in ISO 8601 format.
-          examples:
-          - '2022-01-01T00:00:00Z'
-      type: object
-      required:
-      - started_at
-      title: SessionStatusOngoing
-      description: Session that is currently ongoing.
     LivekitSessionResponse:
       properties:
         id:
@@ -231,90 +233,6 @@ components:
       - url
       title: LivekitSessionResponse
       description: Response body for a LiveKit speech-to-video session.
-    NoMorePage_SessionResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SessionResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: false
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: false
-      type: object
-      required:
-      - data
-      title: NoMorePage[SessionResponse]
-    CreateSessionRequest:
-      anyOf:
-      - $ref: '#/components/schemas/CreateLivekitSessionRequest'
-      - $ref: '#/components/schemas/CreatePipecatSessionRequest'
-    CreatePipecatSessionRequest:
-      properties:
-        transport:
-          type: string
-          const: pipecat
-          title: Transport
-          default: pipecat
-        avatar_id:
-          type: string
-          title: Avatar Id
-          description: ID of avatar to use.
-          examples:
-          - 01234567-89ab-cdef-0123-456789abcdef
-        url:
-          type: string
-          title: Url
-          description: URL of Daily room the video bot should connect to.
-          examples:
-          - wss://<your-domain>.pipecat.cloud
-        token:
-          type: string
-          format: password
-          title: Token
-          description: The token used to join your Daily room.
-          writeOnly: true
-          examples:
-          - <your-pipecat-token>
-      type: object
-      required:
-      - avatar_id
-      - url
-      - token
-      title: CreatePipecatSessionRequest
-      description: Request body to create a Pipecat speech-to-video session.
-    SessionResponse:
-      oneOf:
-      - $ref: '#/components/schemas/LivekitSessionResponse'
-      - $ref: '#/components/schemas/PipecatSessionResponse'
-      discriminator:
-        propertyName: transport
-        mapping:
-          livekit: '#/components/schemas/LivekitSessionResponse'
-          pipecat: '#/components/schemas/PipecatSessionResponse'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SessionStatusToStart:
-      properties:
-        type:
-          type: string
-          const: to_start
-          title: Type
-          default: to_start
-      type: object
-      title: SessionStatusToStart
-      description: Session that has not yet started.
     PipecatSessionResponse:
       properties:
         id:
@@ -350,6 +268,24 @@ components:
       - url
       title: PipecatSessionResponse
       description: Response body for a Pipecat speech-to-video session.
+    NoMorePage_SessionResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SessionResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[SessionResponse]
     ValidationError:
       properties:
         loc:
@@ -371,6 +307,43 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SessionStatusToStart:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: SessionStatusToStart
+      description: Session that has not yet started.
+    SessionStatusOngoing:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: SessionStatusOngoing
+      description: Session that is currently ongoing.
     HasMorePage_SessionResponse_:
       properties:
         data:
@@ -394,17 +367,44 @@ components:
       - data
       - next_cursor
       title: HasMorePage[SessionResponse]
-    SessionStatus:
-      oneOf:
-      - $ref: '#/components/schemas/SessionStatusToStart'
-      - $ref: '#/components/schemas/SessionStatusOngoing'
-      - $ref: '#/components/schemas/SessionStatusCompleted'
-      discriminator:
-        propertyName: type
-        mapping:
-          completed: '#/components/schemas/SessionStatusCompleted'
-          ongoing: '#/components/schemas/SessionStatusOngoing'
-          to_start: '#/components/schemas/SessionStatusToStart'
+    CreatePipecatSessionRequest:
+      properties:
+        transport:
+          type: string
+          const: pipecat
+          title: Transport
+          default: pipecat
+        avatar_id:
+          type: string
+          title: Avatar Id
+          description: ID of avatar to use.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        url:
+          type: string
+          title: Url
+          description: URL of Daily room the video bot should connect to.
+          examples:
+          - wss://<your-domain>.pipecat.cloud
+        token:
+          type: string
+          format: password
+          title: Token
+          description: The token used to join your Daily room.
+          writeOnly: true
+          examples:
+          - <your-pipecat-token>
+      type: object
+      required:
+      - avatar_id
+      - url
+      - token
+      title: CreatePipecatSessionRequest
+      description: Request body to create a Pipecat speech-to-video session.
+    CreateSessionRequest:
+      anyOf:
+      - $ref: '#/components/schemas/CreateLivekitSessionRequest'
+      - $ref: '#/components/schemas/CreatePipecatSessionRequest'
   securitySchemes:
     APIKeyHeader:
       type: apiKey

@@ -207,15 +207,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    KnowledgeFileResponse:
-      oneOf:
-      - $ref: '#/components/schemas/ToUploadKnowledgeFileResponse'
-      - $ref: '#/components/schemas/AvailableKnowledgeFileResponse'
-      discriminator:
-        propertyName: status
-        mapping:
-          available: '#/components/schemas/AvailableKnowledgeFileResponse'
-          to-upload: '#/components/schemas/ToUploadKnowledgeFileResponse'
     AvailableKnowledgeFileResponse:
       properties:
         id:
@@ -249,97 +240,15 @@ components:
       - text
       title: AvailableKnowledgeFileResponse
       description: Response model for an available knowledge file.
-    CreateKnowledgeFileRequest:
+    KnowledgeFileResponse:
       oneOf:
-      - $ref: '#/components/schemas/CreateTextKnowledgeFileRequest'
-      - $ref: '#/components/schemas/CreatePdfKnowledgeFileRequest'
+      - $ref: '#/components/schemas/ToUploadKnowledgeFileResponse'
+      - $ref: '#/components/schemas/AvailableKnowledgeFileResponse'
       discriminator:
-        propertyName: format
+        propertyName: status
         mapping:
-          pdf: '#/components/schemas/CreatePdfKnowledgeFileRequest'
-          text: '#/components/schemas/CreateTextKnowledgeFileRequest'
-    HasMorePage_KnowledgeFileResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/KnowledgeFileResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: true
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: true
-        next_cursor:
-          type: string
-          title: Next Cursor
-          description: The cursor for the next page of objects.
-      type: object
-      required:
-      - data
-      - next_cursor
-      title: HasMorePage[KnowledgeFileResponse]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ToUploadKnowledgeFileResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Unique identifier of the object in the database.
-          examples:
-          - 01234567-89ab-cdef-0123-456789abcdef
-        name:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Name
-          examples:
-          - Hitchhiker's Guide to the Galaxy
-        format:
-          $ref: '#/components/schemas/KnowledgeFileFormat'
-        status:
-          type: string
-          const: to-upload
-          title: Status
-          default: to-upload
-      type: object
-      required:
-      - id
-      - name
-      - format
-      title: ToUploadKnowledgeFileResponse
-      description: Response model for a knowledge file that is to be uploaded.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+          available: '#/components/schemas/AvailableKnowledgeFileResponse'
+          to-upload: '#/components/schemas/ToUploadKnowledgeFileResponse'
     KnowledgeFileFormat:
       type: string
       enum:
@@ -372,6 +281,97 @@ components:
       - upload_num_chunks
       title: CreatePdfKnowledgeFileRequest
       description: Request model for creating a PDF knowledge file.
+    HasMorePage_KnowledgeFileResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/KnowledgeFileResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[KnowledgeFileResponse]
+    ToUploadKnowledgeFileResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Name
+          examples:
+          - Hitchhiker's Guide to the Galaxy
+        format:
+          $ref: '#/components/schemas/KnowledgeFileFormat'
+        status:
+          type: string
+          const: to-upload
+          title: Status
+          default: to-upload
+      type: object
+      required:
+      - id
+      - name
+      - format
+      title: ToUploadKnowledgeFileResponse
+      description: Response model for a knowledge file that is to be uploaded.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateKnowledgeFileRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateTextKnowledgeFileRequest'
+      - $ref: '#/components/schemas/CreatePdfKnowledgeFileRequest'
+      discriminator:
+        propertyName: format
+        mapping:
+          pdf: '#/components/schemas/CreatePdfKnowledgeFileRequest'
+          text: '#/components/schemas/CreateTextKnowledgeFileRequest'
     NoMorePage_KnowledgeFileResponse_:
       properties:
         data:

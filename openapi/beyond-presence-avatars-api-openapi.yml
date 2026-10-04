@@ -87,15 +87,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AvatarStatus:
-      type: string
-      enum:
-      - to-train
-      - training
-      - available
-      - failed
-      title: AvatarStatus
-      description: Status of an avatar.
     HasMorePage_AvatarResponse_:
       properties:
         data:
@@ -119,33 +110,32 @@ components:
       - data
       - next_cursor
       title: HasMorePage[AvatarResponse]
-    NoMorePage_AvatarResponse_:
+    AvatarResponse:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AvatarResponse'
-          type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: false
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: false
+        visibility:
+          $ref: '#/components/schemas/Visibility'
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        name:
+          type: string
+          title: Name
+          examples:
+          - John Doe
+          - Jane Smith
+        status:
+          $ref: '#/components/schemas/AvatarStatus'
       type: object
       required:
-      - data
-      title: NoMorePage[AvatarResponse]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - visibility
+      - id
+      - name
+      - status
+      title: AvatarResponse
+      description: Response model for an avatar.
     Visibility:
       type: string
       enum:
@@ -174,32 +164,42 @@ components:
       - msg
       - type
       title: ValidationError
-    AvatarResponse:
+    HTTPValidationError:
       properties:
-        visibility:
-          $ref: '#/components/schemas/Visibility'
-        id:
-          type: string
-          title: Id
-          description: Unique identifier of the object in the database.
-          examples:
-          - 01234567-89ab-cdef-0123-456789abcdef
-        name:
-          type: string
-          title: Name
-          examples:
-          - John Doe
-          - Jane Smith
-        status:
-          $ref: '#/components/schemas/AvatarStatus'
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    NoMorePage_AvatarResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AvatarResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
       type: object
       required:
-      - visibility
-      - id
-      - name
-      - status
-      title: AvatarResponse
-      description: Response model for an avatar.
+      - data
+      title: NoMorePage[AvatarResponse]
+    AvatarStatus:
+      type: string
+      enum:
+      - to-train
+      - training
+      - available
+      - failed
+      title: AvatarStatus
+      description: Status of an avatar.
   securitySchemes:
     APIKeyHeader:
       type: apiKey
