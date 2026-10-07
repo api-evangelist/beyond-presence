@@ -189,6 +189,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/beyond-presence-plans-pricing.yml
 - type: Website
   url: https://bey.dev
 - type: PostmanWorkspace
