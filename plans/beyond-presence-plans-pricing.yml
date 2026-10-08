@@ -1,0 +1,65 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.beyondpresence.ai/pricing
+sources:
+- https://www.beyondpresence.ai/pricing
+- https://beyondpresence.ai/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-07'
+  evidence: On-premise deployments
+  managed_tier: Starter
+published: true
+note: Tiered subscriptions with credit allowances and per-minute overages; Enterprise is custom with on-prem
+  deployments mentioned but not priced.
+plan_count: 5
+currency: EUR
+plans:
+- name: Free
+  price_text: €0 / month
+  price: 0
+  currency: EUR
+  period: month
+  unit: 2K credits/month
+  included_quota: 40 free minutes, 1 concurrent session, stock avatars (1080p), community support, API
+    access
+- name: Starter
+  price_text: €49 /month
+  price: 49
+  currency: EUR
+  period: month
+  unit: 14K credits/month
+  included_quota: 280 free minutes, 10 concurrent sessions, 1 custom avatar (1080p)
+  overage: €0.175/min
+- name: Growth
+  price_text: €149 /month
+  price: 149
+  currency: EUR
+  period: month
+  unit: 74.5K credits/month
+  included_quota: 1490 free minutes, 25 concurrent sessions, 3 custom avatars
+  overage: €0.10/min
+- name: Scale
+  price_text: €349 /month
+  price: 349
+  currency: EUR
+  period: month
+  unit: 200K credits/month
+  included_quota: 4000 free minutes, 50 concurrent sessions, 10 custom avatars
+  overage: €0.0875/min
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Custom size, on-prem deployments, SLA
+  overage: Rates fall to €0.03/min at scale
+rate_limit_statements:
+- Max. Concurrent Sessions 1 10 25 50 Unlimited
+- Max. Session Duration 3 minutes Unlimited Unlimited Unlimited Unlimited
