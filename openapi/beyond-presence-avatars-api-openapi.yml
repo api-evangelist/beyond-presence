@@ -87,29 +87,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HasMorePage_AvatarResponse_:
+    HTTPValidationError:
       properties:
-        data:
+        detail:
           items:
-            $ref: '#/components/schemas/AvatarResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Data
-          description: List of objects.
-        has_more:
-          type: boolean
-          const: true
-          title: Has More
-          description: Whether there are more objects to fetch.
-          default: true
-        next_cursor:
-          type: string
-          title: Next Cursor
-          description: The cursor for the next page of objects.
+          title: Detail
       type: object
-      required:
-      - data
-      - next_cursor
-      title: HasMorePage[AvatarResponse]
+      title: HTTPValidationError
     AvatarResponse:
       properties:
         visibility:
@@ -136,13 +122,29 @@ components:
       - status
       title: AvatarResponse
       description: Response model for an avatar.
-    Visibility:
-      type: string
-      enum:
-      - public
-      - private
-      title: Visibility
-      description: Visibility of the resource.
+    HasMorePage_AvatarResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AvatarResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[AvatarResponse]
     ValidationError:
       properties:
         loc:
@@ -164,15 +166,13 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    Visibility:
+      type: string
+      enum:
+      - public
+      - private
+      title: Visibility
+      description: Visibility of the resource.
     NoMorePage_AvatarResponse_:
       properties:
         data:

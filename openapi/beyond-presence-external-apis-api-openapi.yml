@@ -166,13 +166,6 @@ components:
       - api_key
       title: CreateOpenaiCompatibleLlmExternalApiRequest
       description: Request body to create an OpenAI-compatible LLM API configuration.
-    ExternalApiResponse:
-      oneOf:
-      - $ref: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
-      discriminator:
-        propertyName: type
-        mapping:
-          openai_compatible_llm: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
     OpenaiCompatibleLlmExternalApiResponse:
       properties:
         id:
@@ -199,6 +192,29 @@ components:
       - url
       title: OpenaiCompatibleLlmExternalApiResponse
       description: Response body for an OpenAI-compatible LLM API configuration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ExternalApiResponse:
+      oneOf:
+      - $ref: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+      discriminator:
+        propertyName: type
+        mapping:
+          openai_compatible_llm: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+    CreateExternalApiRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
     HasMorePage_ExternalApiResponse_:
       properties:
         data:
@@ -243,22 +259,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreateExternalApiRequest:
-      oneOf:
-      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
-      discriminator:
-        propertyName: type
-        mapping:
-          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
     NoMorePage_ExternalApiResponse_:
       properties:
         data:
