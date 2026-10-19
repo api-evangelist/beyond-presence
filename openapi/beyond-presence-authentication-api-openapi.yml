@@ -1,18 +1,86 @@
 openapi: 3.2.0
 info:
-  title: Fast Authentication API
-  version: 0.1.0
+  title: Beyond Presence Authentication API
+  summary: Create, configure, and run interactive real-time avatars.
+  description: 'The Beyond Presence API lets you build lifelike, real-time avatars.
+
+
+    ## Starting a conversation with a Managed Agent
+
+
+    There are two ways to put a user in front of one of your agents, and most
+
+    integrations only need the first:
+
+
+    1. **Open the agent''s managed room** at `https://bey.chat/`. This
+
+    needs no API call at all and is available on every plan. Use the
+
+    `Agent Conversations` endpoints afterwards to read status and transcripts.
+
+    2. **Drive the media session yourself** from a LiveKit client SDK, using
+
+    `POST /v1/livekit-rooms` in the `Agent Integration` group to mint room
+
+    credentials. This requires the Growth plan or above.
+
+
+    ## Authentication
+
+
+    Authenticate every request with your API key in the `x-api-key` header:
+
+
+    ```
+
+    x-api-key:
+
+    ```
+
+
+    You can create and manage API keys in the dashboard, and verify a key with
+
+    `GET /v1/auth/verify`.
+
+
+    ## Pagination
+
+
+    List endpoints are cursor-paginated. Pass `limit` (1-50, default 10) to control
+
+    the page size and `cursor` to fetch the next page. Each response includes a
+
+    `next_cursor` when more results are available.
+
+
+    ## Errors
+
+
+    Errors return the appropriate HTTP status code with a JSON body containing a
+
+    `detail` message with more information.
+
+
+    ## Rate limits
+
+
+    Usage and concurrency limits are tied to your plan and surfaced as HTTP `429`
+
+    responses.'
+  version: 0.3.0
 servers:
 - url: https://api.bey.dev
 tags:
 - name: Authentication
+  description: Verify your API key.
 paths:
   /v1/auth/verify:
     get:
       tags:
       - Authentication
       summary: Verify API Key
-      description: Verify authentication with API key.
+      description: Check whether the `x-api-key` header contains a valid API key. Returns `204 No Content` when the key is valid and `401 Unauthorized` otherwise. Useful as a lightweight connectivity and credential check.
       operationId: verify_v1_auth_verify_get
       responses:
         '204':

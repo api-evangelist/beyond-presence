@@ -119,64 +119,89 @@ apis:
     url: https://docs.bey.dev/api-reference
   - type: Authentication
     url: authentication/beyond-presence-authentication.yml
-- aid: beyond-presence:beyond-presence-calls-api
-  name: Beyond Presence Calls API
-  description: The Calls API from Beyond Presence — 3 operation(s) for calls.
+- aid: beyond-presence:beyond-presence-agent-conversations-api
+  name: Beyond Presence Agent Conversations API
+  description: >-
+    Retrieve information about the conversations your Managed Agents have had, including their status,
+    participants, and transcripts.
   humanURL: https://docs.bey.dev
   baseURL: https://api.bey.dev
   tags:
-  - Calls
+  - Agent Conversations
   properties:
   - type: OpenAPI
-    url: openapi/beyond-presence-calls-api-openapi.yml
+    url: openapi/beyond-presence-agent-conversations-api-openapi.yml
   - type: Documentation
     url: https://docs.bey.dev/introduction
   - type: APIReference
     url: https://docs.bey.dev/api-reference
   - type: Authentication
     url: authentication/beyond-presence-authentication.yml
-- aid: beyond-presence:beyond-presence-external-apis-api
-  name: Beyond Presence External APIs API
-  description: The External APIs API from Beyond Presence — 2 operation(s) for external apis.
+- aid: beyond-presence:beyond-presence-agent-integration-api
+  name: Beyond Presence Agent Integration API
+  description: >-
+    Primitives for embedding a Managed Agent in your own application with advanced cusotmization. **Most
+    integrations do not need these.**
   humanURL: https://docs.bey.dev
   baseURL: https://api.bey.dev
   tags:
-  - External APIs
+  - Agent Integration
   properties:
   - type: OpenAPI
-    url: openapi/beyond-presence-external-apis-api-openapi.yml
+    url: openapi/beyond-presence-agent-integration-api-openapi.yml
   - type: Documentation
     url: https://docs.bey.dev/introduction
   - type: APIReference
     url: https://docs.bey.dev/api-reference
   - type: Authentication
     url: authentication/beyond-presence-authentication.yml
-- aid: beyond-presence:beyond-presence-knowledge-files-api
-  name: Beyond Presence Knowledge Files API
-  description: The Knowledge Files API from Beyond Presence — 4 operation(s) for knowledge files.
+- aid: beyond-presence:beyond-presence-agent-knowledge-files-api
+  name: Beyond Presence Agent Knowledge Files API
+  description: >-
+    Manage the knowledge base documents your Managed Agents can draw on during a conversation.
   humanURL: https://docs.bey.dev
   baseURL: https://api.bey.dev
   tags:
-  - Knowledge Files
+  - Agent Knowledge Files
   properties:
   - type: OpenAPI
-    url: openapi/beyond-presence-knowledge-files-api-openapi.yml
+    url: openapi/beyond-presence-agent-knowledge-files-api-openapi.yml
   - type: Documentation
     url: https://docs.bey.dev/introduction
   - type: APIReference
     url: https://docs.bey.dev/api-reference
   - type: Authentication
     url: authentication/beyond-presence-authentication.yml
-- aid: beyond-presence:beyond-presence-sessions-api
-  name: Beyond Presence Sessions API
-  description: The Sessions API from Beyond Presence — 2 operation(s) for sessions.
+- aid: beyond-presence:beyond-presence-agents-external-apis-api
+  name: Beyond Presence Agents External APIs API
+  description: >-
+    Store credentials for external services, such as an OpenAI-compatible LLM, so Managed Agents can reference
+    them by ID.
   humanURL: https://docs.bey.dev
   baseURL: https://api.bey.dev
   tags:
-  - Sessions
+  - Agents External APIs
   properties:
   - type: OpenAPI
-    url: openapi/beyond-presence-sessions-api-openapi.yml
+    url: openapi/beyond-presence-agents-external-apis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bey.dev/introduction
+  - type: APIReference
+    url: https://docs.bey.dev/api-reference
+  - type: Authentication
+    url: authentication/beyond-presence-authentication.yml
+- aid: beyond-presence:beyond-presence-speech-to-video-sessions-api
+  name: Beyond Presence Speech-to-Video Sessions API
+  description: >-
+    Attach an avatar to a voice agent you build and run yourself. Prefer using the [LiveKit Plugin](https://docs.bey.dev/integrations/voice-agents/livekit)
+    over calling these endpoints directly.
+  humanURL: https://docs.bey.dev
+  baseURL: https://api.bey.dev
+  tags:
+  - Speech-to-Video Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/beyond-presence-speech-to-video-sessions-api-openapi.yml
   - type: Documentation
     url: https://docs.bey.dev/introduction
   - type: APIReference

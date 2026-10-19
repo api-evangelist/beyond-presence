@@ -1,0 +1,643 @@
+openapi: 3.2.0
+info:
+  title: Beyond Presence Agents External APIs API
+  summary: Create, configure, and run interactive real-time avatars.
+  description: 'The Beyond Presence API lets you build lifelike, real-time avatars.
+
+
+    ## Starting a conversation with a Managed Agent
+
+
+    There are two ways to put a user in front of one of your agents, and most
+
+    integrations only need the first:
+
+
+    1. **Open the agent''s managed room** at `https://bey.chat/`. This
+
+    needs no API call at all and is available on every plan. Use the
+
+    `Agent Conversations` endpoints afterwards to read status and transcripts.
+
+    2. **Drive the media session yourself** from a LiveKit client SDK, using
+
+    `POST /v1/livekit-rooms` in the `Agent Integration` group to mint room
+
+    credentials. This requires the Growth plan or above.
+
+
+    ## Authentication
+
+
+    Authenticate every request with your API key in the `x-api-key` header:
+
+
+    ```
+
+    x-api-key:
+
+    ```
+
+
+    You can create and manage API keys in the dashboard, and verify a key with
+
+    `GET /v1/auth/verify`.
+
+
+    ## Pagination
+
+
+    List endpoints are cursor-paginated. Pass `limit` (1-50, default 10) to control
+
+    the page size and `cursor` to fetch the next page. Each response includes a
+
+    `next_cursor` when more results are available.
+
+
+    ## Errors
+
+
+    Errors return the appropriate HTTP status code with a JSON body containing a
+
+    `detail` message with more information.
+
+
+    ## Rate limits
+
+
+    Usage and concurrency limits are tied to your plan and surfaced as HTTP `429`
+
+    responses.'
+  version: 0.3.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Agents External APIs
+  description: Store credentials for external services, such as an OpenAI-compatible LLM, so Managed Agents can reference them by ID.
+paths:
+  /v1/external-apis:
+    post:
+      tags:
+      - Agents External APIs
+      summary: Create External API Configuration
+      description: 'Create an external API configuration.
+
+
+        Securely stores credentials for an external service (such as an
+
+        OpenAI-compatible LLM or your ElevenLabs account) so agents can reference
+
+        it by ID. The secret itself is never returned in responses. Fails if the
+
+        service rejects the key, which is only checked for ElevenLabs so far.'
+      operationId: create_external_api_v1_external_apis_post
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExternalApiRequest'
+              description: External API configuration data.
+      responses:
+        '201':
+          description: Created External API Configuration with ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalApiResponse'
+        '401':
+          description: Authentication failed. The `x-api-key` header is missing or the provided API key is invalid.
+          content:
+            application/json:
+              examples:
+                missing:
+                  summary: Missing API key
+                  value:
+                    detail: API key is required.
+                invalid:
+                  summary: Invalid API key
+                  value:
+                    detail: Invalid API key.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The API key is valid but not permitted to perform this action, either because the resource belongs to someone else or because the requested feature requires a plan upgrade.
+          content:
+            application/json:
+              examples:
+                permission:
+                  summary: Not permitted
+                  value:
+                    detail: You do not have permission to access this resource.
+                plan:
+                  summary: Plan upgrade required
+                  value:
+                    detail: This feature is not available on your current plan. Please upgrade your plan.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource does not exist or is not accessible with this API key.
+          content:
+            application/json:
+              example:
+                detail: The requested resource was not found.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request is malformed. `detail` lists each field that failed validation, where it was located, and why.
+          content:
+            application/json:
+              example:
+                detail:
+                - loc:
+                  - body
+                  - name
+                  msg: Field required
+                  type: missing
+        '429':
+          description: A plan limit has been exceeded, either the usage limit or the number of concurrent sessions.
+          content:
+            application/json:
+              examples:
+                usage:
+                  summary: Usage limit exceeded
+                  value:
+                    detail: Usage limit exceeded. Please upgrade your plan.
+                concurrency:
+                  summary: Concurrency limit exceeded
+                  value:
+                    detail: You have reached your concurrency limit. Please upgrade your plan or stop other ongoing sessions.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Agents External APIs
+      summary: List External API Configurations
+      description: 'List your external API configurations.
+
+
+        Returns a cursor-paginated list of configurations you own. Secrets are
+
+        never included.'
+      operationId: list_external_apis_v1_external_apis_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: Maximum number of objects to return.
+          default: 10
+          title: Limit
+        description: Maximum number of objects to return.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Cursor for pagination.
+          title: Cursor
+        description: Cursor for pagination.
+      responses:
+        '200':
+          description: Paginated List of External API Configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_ExternalApiResponse_'
+        '401':
+          description: Authentication failed. The `x-api-key` header is missing or the provided API key is invalid.
+          content:
+            application/json:
+              examples:
+                missing:
+                  summary: Missing API key
+                  value:
+                    detail: API key is required.
+                invalid:
+                  summary: Invalid API key
+                  value:
+                    detail: Invalid API key.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The API key is valid but not permitted to perform this action, either because the resource belongs to someone else or because the requested feature requires a plan upgrade.
+          content:
+            application/json:
+              examples:
+                permission:
+                  summary: Not permitted
+                  value:
+                    detail: You do not have permission to access this resource.
+                plan:
+                  summary: Plan upgrade required
+                  value:
+                    detail: This feature is not available on your current plan. Please upgrade your plan.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource does not exist or is not accessible with this API key.
+          content:
+            application/json:
+              example:
+                detail: The requested resource was not found.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request is malformed. `detail` lists each field that failed validation, where it was located, and why.
+          content:
+            application/json:
+              example:
+                detail:
+                - loc:
+                  - body
+                  - name
+                  msg: Field required
+                  type: missing
+        '429':
+          description: A plan limit has been exceeded, either the usage limit or the number of concurrent sessions.
+          content:
+            application/json:
+              examples:
+                usage:
+                  summary: Usage limit exceeded
+                  value:
+                    detail: Usage limit exceeded. Please upgrade your plan.
+                concurrency:
+                  summary: Concurrency limit exceeded
+                  value:
+                    detail: You have reached your concurrency limit. Please upgrade your plan or stop other ongoing sessions.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/external-apis/{id}:
+    get:
+      tags:
+      - Agents External APIs
+      summary: Retrieve External API Configuration
+      description: Retrieve a single external API configuration by ID (without its secret).
+      operationId: get_external_api_v1_external_apis__id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: External API configuration ID.
+          title: Id
+        description: External API configuration ID.
+      responses:
+        '200':
+          description: Requested External API Configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalApiResponse'
+        '401':
+          description: Authentication failed. The `x-api-key` header is missing or the provided API key is invalid.
+          content:
+            application/json:
+              examples:
+                missing:
+                  summary: Missing API key
+                  value:
+                    detail: API key is required.
+                invalid:
+                  summary: Invalid API key
+                  value:
+                    detail: Invalid API key.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The API key is valid but not permitted to perform this action, either because the resource belongs to someone else or because the requested feature requires a plan upgrade.
+          content:
+            application/json:
+              examples:
+                permission:
+                  summary: Not permitted
+                  value:
+                    detail: You do not have permission to access this resource.
+                plan:
+                  summary: Plan upgrade required
+                  value:
+                    detail: This feature is not available on your current plan. Please upgrade your plan.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource does not exist or is not accessible with this API key.
+          content:
+            application/json:
+              example:
+                detail: The requested resource was not found.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request is malformed. `detail` lists each field that failed validation, where it was located, and why.
+          content:
+            application/json:
+              example:
+                detail:
+                - loc:
+                  - body
+                  - name
+                  msg: Field required
+                  type: missing
+        '429':
+          description: A plan limit has been exceeded, either the usage limit or the number of concurrent sessions.
+          content:
+            application/json:
+              examples:
+                usage:
+                  summary: Usage limit exceeded
+                  value:
+                    detail: Usage limit exceeded. Please upgrade your plan.
+                concurrency:
+                  summary: Concurrency limit exceeded
+                  value:
+                    detail: You have reached your concurrency limit. Please upgrade your plan or stop other ongoing sessions.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Agents External APIs
+      summary: Delete External API Configuration
+      description: 'Delete an external API configuration and its stored secret.
+
+
+        Fails if any of your agents still uses the configuration; change their LLM
+
+        first.'
+      operationId: delete_external_api_v1_external_apis__id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: External API configuration ID.
+          title: Id
+        description: External API configuration ID.
+      responses:
+        '204':
+          description: Successful Deletion
+        '401':
+          description: Authentication failed. The `x-api-key` header is missing or the provided API key is invalid.
+          content:
+            application/json:
+              examples:
+                missing:
+                  summary: Missing API key
+                  value:
+                    detail: API key is required.
+                invalid:
+                  summary: Invalid API key
+                  value:
+                    detail: Invalid API key.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The API key is valid but not permitted to perform this action, either because the resource belongs to someone else or because the requested feature requires a plan upgrade.
+          content:
+            application/json:
+              examples:
+                permission:
+                  summary: Not permitted
+                  value:
+                    detail: You do not have permission to access this resource.
+                plan:
+                  summary: Plan upgrade required
+                  value:
+                    detail: This feature is not available on your current plan. Please upgrade your plan.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource does not exist or is not accessible with this API key.
+          content:
+            application/json:
+              example:
+                detail: The requested resource was not found.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: The request is malformed. `detail` lists each field that failed validation, where it was located, and why.
+          content:
+            application/json:
+              example:
+                detail:
+                - loc:
+                  - body
+                  - name
+                  msg: Field required
+                  type: missing
+        '429':
+          description: A plan limit has been exceeded, either the usage limit or the number of concurrent sessions.
+          content:
+            application/json:
+              examples:
+                usage:
+                  summary: Usage limit exceeded
+                  value:
+                    detail: Usage limit exceeded. Please upgrade your plan.
+                concurrency:
+                  summary: Concurrency limit exceeded
+                  value:
+                    detail: You have reached your concurrency limit. Please upgrade your plan or stop other ongoing sessions.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateExternalApiRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+      - $ref: '#/components/schemas/CreateElevenlabsExternalApiRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          elevenlabs: '#/components/schemas/CreateElevenlabsExternalApiRequest'
+          openai_compatible_llm: '#/components/schemas/CreateOpenaiCompatibleLlmExternalApiRequest'
+    CreateElevenlabsExternalApiRequest:
+      properties:
+        type:
+          type: string
+          const: elevenlabs
+          title: Type
+          default: elevenlabs
+        name:
+          type: string
+          title: Name
+        api_key:
+          type: string
+          minLength: 1
+          format: password
+          title: Api Key
+          writeOnly: true
+      type: object
+      required:
+      - name
+      - api_key
+      title: CreateElevenlabsExternalApiRequest
+      description: Request body to create an ElevenLabs API configuration.
+    CreateOpenaiCompatibleLlmExternalApiRequest:
+      properties:
+        type:
+          type: string
+          const: openai_compatible_llm
+          title: Type
+          default: openai_compatible_llm
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          title: Url
+        api_key:
+          type: string
+          format: password
+          title: Api Key
+          writeOnly: true
+      type: object
+      required:
+      - name
+      - url
+      - api_key
+      title: CreateOpenaiCompatibleLlmExternalApiRequest
+      description: Request body to create an OpenAI-compatible LLM API configuration.
+    ExternalApiResponse:
+      oneOf:
+      - $ref: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+      - $ref: '#/components/schemas/ElevenlabsExternalApiResponse'
+      discriminator:
+        propertyName: type
+        mapping:
+          elevenlabs: '#/components/schemas/ElevenlabsExternalApiResponse'
+          openai_compatible_llm: '#/components/schemas/OpenaiCompatibleLlmExternalApiResponse'
+    NoMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: false
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: false
+      type: object
+      required:
+      - data
+      title: NoMorePage[ExternalApiResponse]
+    HasMorePage_ExternalApiResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalApiResponse'
+          type: array
+          title: Data
+          description: List of objects.
+        has_more:
+          type: boolean
+          const: true
+          title: Has More
+          description: Whether there are more objects to fetch.
+          default: true
+        next_cursor:
+          type: string
+          title: Next Cursor
+          description: The cursor for the next page of objects.
+      type: object
+      required:
+      - data
+      - next_cursor
+      title: HasMorePage[ExternalApiResponse]
+    ElevenlabsExternalApiResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        type:
+          type: string
+          const: elevenlabs
+          title: Type
+          default: elevenlabs
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - name
+      title: ElevenlabsExternalApiResponse
+      description: Response body for an ElevenLabs API configuration.
+    OpenaiCompatibleLlmExternalApiResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        type:
+          type: string
+          const: openai_compatible_llm
+          title: Type
+          default: openai_compatible_llm
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - id
+      - name
+      - url
+      title: OpenaiCompatibleLlmExternalApiResponse
+      description: Response body for an OpenAI-compatible LLM API configuration.
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: Human-readable description of the error.
+          examples:
+          - Invalid API key.
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+      description: 'Standard error response body.
+
+
+        Carries a single human-readable `detail` message describing what went
+
+        wrong. This is the shape of every error response except validation errors
+
+        (`422`), which instead return a list of per-field error objects.'
+    Page_ExternalApiResponse_:
+      anyOf:
+      - $ref: '#/components/schemas/HasMorePage_ExternalApiResponse_'
+      - $ref: '#/components/schemas/NoMorePage_ExternalApiResponse_'
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key

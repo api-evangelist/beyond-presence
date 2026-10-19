@@ -1,0 +1,357 @@
+openapi: 3.2.0
+info:
+  title: Beyond Presence Agent Integration API
+  summary: Create, configure, and run interactive real-time avatars.
+  description: 'The Beyond Presence API lets you build lifelike, real-time avatars.
+
+
+    ## Starting a conversation with a Managed Agent
+
+
+    There are two ways to put a user in front of one of your agents, and most
+
+    integrations only need the first:
+
+
+    1. **Open the agent''s managed room** at `https://bey.chat/`. This
+
+    needs no API call at all and is available on every plan. Use the
+
+    `Agent Conversations` endpoints afterwards to read status and transcripts.
+
+    2. **Drive the media session yourself** from a LiveKit client SDK, using
+
+    `POST /v1/livekit-rooms` in the `Agent Integration` group to mint room
+
+    credentials. This requires the Growth plan or above.
+
+
+    ## Authentication
+
+
+    Authenticate every request with your API key in the `x-api-key` header:
+
+
+    ```
+
+    x-api-key:
+
+    ```
+
+
+    You can create and manage API keys in the dashboard, and verify a key with
+
+    `GET /v1/auth/verify`.
+
+
+    ## Pagination
+
+
+    List endpoints are cursor-paginated. Pass `limit` (1-50, default 10) to control
+
+    the page size and `cursor` to fetch the next page. Each response includes a
+
+    `next_cursor` when more results are available.
+
+
+    ## Errors
+
+
+    Errors return the appropriate HTTP status code with a JSON body containing a
+
+    `detail` message with more information.
+
+
+    ## Rate limits
+
+
+    Usage and concurrency limits are tied to your plan and surfaced as HTTP `429`
+
+    responses.'
+  version: 0.3.0
+servers:
+- url: https://api.bey.dev
+tags:
+- name: Agent Integration
+  description: Primitives for embedding a Managed Agent in your own application with advanced cusotmization. **Most integrations do not need these.**
+paths:
+  /v1/livekit-rooms:
+    post:
+      tags:
+      - Agent Integration
+      summary: Create LiveKit Room
+      description: 'Create a LiveKit room for one of your agents and return the credentials a LiveKit client needs to join it.
+
+
+        Use this only when you are embedding a conversation in your own
+
+        application via the LiveKit client SDK. Most integrations do not need it:
+
+        Interacting with Managed Agents through the UI starts a conversation with no API call required.
+
+
+        The room is created together with its conversation, whose status and
+
+        transcript you can then read from `/v1/conversations/{id}`.'
+      operationId: create_livekit_room_v1_livekit_rooms_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLiveKitRoomRequest'
+        required: true
+      responses:
+        '201':
+          description: Created LiveKit room with its conversation ID and connection details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveKitRoomResponse'
+        '401':
+          description: Authentication failed. The `x-api-key` header is missing or the provided API key is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missing:
+                  summary: Missing API key
+                  value:
+                    detail: API key is required.
+                invalid:
+                  summary: Invalid API key
+                  value:
+                    detail: Invalid API key.
+        '403':
+          description: The API key is valid but not permitted to perform this action, either because the resource belongs to someone else or because the requested feature requires a plan upgrade.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                permission:
+                  summary: Not permitted
+                  value:
+                    detail: You do not have permission to access this resource.
+                plan:
+                  summary: Plan upgrade required
+                  value:
+                    detail: This feature is not available on your current plan. Please upgrade your plan.
+        '404':
+          description: The requested resource does not exist or is not accessible with this API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                detail: The requested resource was not found.
+        '422':
+          description: The request is malformed. `detail` lists each field that failed validation, where it was located, and why.
+          content:
+            application/json:
+              example:
+                detail:
+                - loc:
+                  - body
+                  - name
+                  msg: Field required
+                  type: missing
+        '429':
+          description: A plan limit has been exceeded, either the usage limit or the number of concurrent sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                usage:
+                  summary: Usage limit exceeded
+                  value:
+                    detail: Usage limit exceeded. Please upgrade your plan.
+                concurrency:
+                  summary: Concurrency limit exceeded
+                  value:
+                    detail: You have reached your concurrency limit. Please upgrade your plan or stop other ongoing sessions.
+      security:
+      - APIKeyHeader: []
+components:
+  schemas:
+    LiveKitRoomResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier of the object in the database.
+          examples:
+          - 01234567-89ab-cdef-0123-456789abcdef
+        agent_id:
+          type: string
+          title: Agent Id
+          description: ID of agent managing the conversation.
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+          description: Name of the user.
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+          description: Email of the user.
+        tags:
+          additionalProperties:
+            type: string
+            maxLength: 100
+            minLength: 1
+          propertyNames:
+            maxLength: 30
+            minLength: 1
+          type: object
+          maxProperties: 10
+          title: Tags
+          description: Tags for the conversation.
+        status:
+          $ref: '#/components/schemas/ConversationStatus'
+        livekit_url:
+          type: string
+          title: Livekit Url
+          description: LiveKit server URL to connect to.
+        livekit_token:
+          type: string
+          title: Livekit Token
+          description: JWT for joining the LiveKit room.
+      type: object
+      required:
+      - id
+      - agent_id
+      - status
+      - livekit_url
+      - livekit_token
+      title: LiveKitRoomResponse
+      description: Response model for a conversation including LiveKit connection details.
+    OngoingConversationStatus:
+      properties:
+        type:
+          type: string
+          const: ongoing
+          title: Type
+          default: ongoing
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      title: OngoingConversationStatus
+      description: Status for conversation that is currently ongoing.
+    CompletedConversationStatus:
+      properties:
+        type:
+          type: string
+          const: completed
+          title: Type
+          default: completed
+        started_at:
+          type: string
+          title: Started At
+          description: Start time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+        ended_at:
+          type: string
+          title: Ended At
+          description: End time in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+      type: object
+      required:
+      - started_at
+      - ended_at
+      title: CompletedConversationStatus
+      description: Status for conversation that has completed.
+    CreateLiveKitRoomRequest:
+      properties:
+        agent_id:
+          type: string
+          title: Agent Id
+          description: ID of agent managing the conversation.
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+          description: Name of the user.
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+          description: Email of the user.
+        tags:
+          additionalProperties:
+            type: string
+            maxLength: 100
+            minLength: 1
+          propertyNames:
+            maxLength: 30
+            minLength: 1
+          type: object
+          maxProperties: 10
+          title: Tags
+          description: Tags for the conversation.
+      type: object
+      required:
+      - agent_id
+      title: CreateLiveKitRoomRequest
+      description: Request body to create a LiveKit room and its conversation.
+    ConversationStatus:
+      oneOf:
+      - $ref: '#/components/schemas/ToStartConversationStatus'
+      - $ref: '#/components/schemas/OngoingConversationStatus'
+      - $ref: '#/components/schemas/CompletedConversationStatus'
+      discriminator:
+        propertyName: type
+        mapping:
+          completed: '#/components/schemas/CompletedConversationStatus'
+          ongoing: '#/components/schemas/OngoingConversationStatus'
+          to_start: '#/components/schemas/ToStartConversationStatus'
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: Human-readable description of the error.
+          examples:
+          - Invalid API key.
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+      description: 'Standard error response body.
+
+
+        Carries a single human-readable `detail` message describing what went
+
+        wrong. This is the shape of every error response except validation errors
+
+        (`422`), which instead return a list of per-field error objects.'
+    ToStartConversationStatus:
+      properties:
+        type:
+          type: string
+          const: to_start
+          title: Type
+          default: to_start
+      type: object
+      title: ToStartConversationStatus
+      description: Status for conversation that has not yet started.
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      description: Your Beyond Presence API Key.
+      in: header
+      name: x-api-key
