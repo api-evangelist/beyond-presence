@@ -145,6 +145,8 @@ apis:
   humanURL: https://docs.bey.dev
   baseURL: https://api.bey.dev
   tags:
+  - Agent-Integration
+  tags_raw:
   - Agent Integration
   properties:
   - type: OpenAPI
