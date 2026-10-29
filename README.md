@@ -64,6 +64,149 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Beyond Presence is a company surfaced as a portfolio company of hv-capital and added to the API Evangelist network as a stub for enrichment. Sector: ai-enterprise-software. This profile is a lead awaiting the enrichment pipeline.
+Beyond Presence (brand "bey") is a Europe-based AI company building real-time conversational AI video agents and speech-to-video (S2V) technology. Its platform lets developers deploy hyper-realistic AI video avatars that respond in real time (sub-1.2s latency at up to 1080p) across HR, sales, support, and coaching use cases. Two products are exposed through one REST API at api.bey.dev: a Speech-to-Video API that turns audio streams into lifelike avatars over LiveKit, and a Managed Agents API that runs end-to-end conversational agents with knowledge files, external LLM/API configuration, and webhook events. Official Python and TypeScript SDKs, an OpenAPI spec, and GDPR / SOC 2 Type II compliance are published. Surfaced as an HV Capital portfolio company and enriched from its public developer surface.
 
-Backed by: hv-capital
+**Areas:** Company · Ai Enterprise Software · Artificial Intelligence · Avatars · Video · Conversational AI · Agents · Speech To Video · Real-Time Communication · A2A
+
+## Beyond Presence on APIs.io
+
+Everything profiled for Beyond Presence is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/beyond-presence/](https://apis.io/providers/beyond-presence/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [Beyond Presence Agents API](https://apis.io/apis/beyond-presence/beyond-presence-agents-api/) — The Agents API from Beyond Presence — 2 operation(s) for agents.
+- [Beyond Presence Authentication API](https://apis.io/apis/beyond-presence/beyond-presence-authentication-api/) — The Authentication API from Beyond Presence — 1 operation(s) for authentication.
+- [Beyond Presence Avatars API](https://apis.io/apis/beyond-presence/beyond-presence-avatars-api/) — The Avatars API from Beyond Presence — 2 operation(s) for avatars.
+- [Beyond Presence Calls API](https://apis.io/apis/beyond-presence/beyond-presence-calls-api/) — The Calls API from Beyond Presence — 3 operation(s) for calls.
+- [Beyond Presence External APIs API](https://apis.io/apis/beyond-presence/beyond-presence-external-apis-api/) — The External APIs API from Beyond Presence — 2 operation(s) for external apis.
+- [Beyond Presence Knowledge Files API](https://apis.io/apis/beyond-presence/beyond-presence-knowledge-files-api/) — The Knowledge Files API from Beyond Presence — 4 operation(s) for knowledge files.
+- [Beyond Presence Sessions API](https://apis.io/apis/beyond-presence/beyond-presence-sessions-api/) — The Sessions API from Beyond Presence — 2 operation(s) for sessions.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Beyond Presence Webhooks](https://apis.io/asyncapis/beyond-presence/beyond-presence-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [beyond-presence](https://apis.io/servers/beyond-presence/beyond-presence/)
+
+#### Collections (14)
+
+Postman and Open Collection request collections.
+
+- [Fast Agents API](https://apis.io/collections/beyond-presence/open-beyond-presence-agents-api/)
+- [Fast Agents Authentication API](https://apis.io/collections/beyond-presence/open-beyond-presence-authentication-api/)
+- [Fast Agents Avatars API](https://apis.io/collections/beyond-presence/open-beyond-presence-avatars-api/)
+- [Fast Agents Calls API](https://apis.io/collections/beyond-presence/open-beyond-presence-calls-api/)
+- [Fast Agents External APIs API](https://apis.io/collections/beyond-presence/open-beyond-presence-external-apis-api/)
+- [Fast Agents Knowledge Files API](https://apis.io/collections/beyond-presence/open-beyond-presence-knowledge-files-api/)
+- [Fast Agents Sessions API](https://apis.io/collections/beyond-presence/open-beyond-presence-sessions-api/)
+- [Fast Agents API](https://apis.io/collections/beyond-presence/postman-beyond-presence-agents-api/)
+- [Fast Agents Authentication API](https://apis.io/collections/beyond-presence/postman-beyond-presence-authentication-api/)
+- [Fast Agents Avatars API](https://apis.io/collections/beyond-presence/postman-beyond-presence-avatars-api/)
+- [Fast Agents Calls API](https://apis.io/collections/beyond-presence/postman-beyond-presence-calls-api/)
+- [Fast Agents External APIs API](https://apis.io/collections/beyond-presence/postman-beyond-presence-external-apis-api/)
+- [Fast Agents Knowledge Files API](https://apis.io/collections/beyond-presence/postman-beyond-presence-knowledge-files-api/)
+- [Fast Agents Sessions API](https://apis.io/collections/beyond-presence/postman-beyond-presence-sessions-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Beyond Presence Openapi Overlay](https://apis.io/overlays/beyond-presence/beyond-presence-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Beyond Presence Authentication](https://apis.io/security/beyond-presence/beyond-presence-authentication/)
+- [Beyond Presence Domain Security](https://apis.io/security/beyond-presence/beyond-presence-domain-security/)
+- [Beyond Presence Trust Center](https://apis.io/security/beyond-presence/beyond-presence-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Beyond Presence Plans Pricing](https://apis.io/plans/beyond-presence/beyond-presence-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://bey.dev)
+- [Documentation](https://docs.bey.dev/introduction)
+- [Getting started](https://docs.bey.dev/quickstart)
+- [API reference](https://docs.bey.dev/api-reference)
+- [Pricing](https://beyondpresence.ai/pricing)
+- [Sign up](https://app.bey.chat/)
+- [Support](https://discord.com/invite/A3JTzk5aWa)
+- [Blog](https://beyondpresence.ai/blog)
+- [Compliance](https://trust.bey.dev/)
+- [Trust centre](https://trust.bey.dev/)
+- [Terms of service](https://beyondpresence.ai/terms-of-service)
+- [Privacy policy](https://beyondpresence.ai/privacy-policy)
+- [GitHub](https://github.com/bey-dev)
+- [Status](https://status.bey.dev/)
+
+## API Evangelist rating
+
+**Kin Score 60.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 62.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 67.3 |
+| Access clarity | 78.9 |
+
+**Agent readiness 31.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.3** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/beyond-presence/](https://apis.io/providers/beyond-presence/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Beyond Presence: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/beyond-presence/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
